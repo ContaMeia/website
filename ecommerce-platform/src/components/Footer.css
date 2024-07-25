@@ -9,6 +9,7 @@
   .footer a {
     color: #e0f7fa;
     text-decoration: none;
+    margin: 0 10px;
   }
   
   .footer a:hover {

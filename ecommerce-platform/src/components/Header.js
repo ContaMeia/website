@@ -6,13 +6,23 @@ import './Header.css';
 function Header() {
   return (
     <header className="header">
+      <div className="logo">
+        <img src="/images/logo.png" alt="Logo" />
+        <h1>Conta&Meia</h1>
+      </div>
       <nav>
-        <Link to="/">Home</Link>
-        <Link to="/shop">Shop</Link>
-        <Link to="/about-us">About Us</Link>
-        <Link to="/sustainability">Sustainability</Link>
-        <Link to="/contact">Contact</Link>
+        <Link to="/">Produtos</Link>
+        <Link to="/collections">Coleções</Link>
+        <Link to="/sustainability">Sustentabilidade</Link>
+        <Link to="/about">Sobre Nós</Link>
+        <Link to="/contact">Contactos</Link>
       </nav>
+      <div className="search">
+        <input type="text" placeholder="Search for products..." />
+        <Link to="/cart">
+          <img src="/images/cart.png" alt="Cart" className="cart" />
+        </Link>
+      </div>
     </header>
   );
 }

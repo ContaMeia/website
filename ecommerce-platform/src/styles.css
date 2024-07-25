@@ -1,25 +1,42 @@
-/* src/styles.css */
-.admin-new-product {
-    padding: 20px;
-    margin: 20px;
-  }
-  
-  .admin-new-product form {
+/* styles.css */
+/* General reset for margins and paddings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e6f9fc;
+}
+
+header {
     display: flex;
-    flex-direction: column;
-  }
-  
-  .admin-new-product form input {
-    margin-bottom: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-  }
-  
-  .admin-new-product form button {
-    padding: 10px;
-    background-color: #00796b;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-  }
-  
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #e6f9fc; /* Match the background color of the main content */
+}
+
+header img {
+    height: 50px;
+    margin-right: 20px;
+}
+
+header nav {
+    display: flex;
+    gap: 20px;
+}
+
+header nav a {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+header .search-cart {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
