@@ -1,42 +1,135 @@
-/* styles.css */
-/* General reset for margins and paddings */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    background-color: #e6f9fc;
-}
-
-header {
+/* Header Styling */
+.header {
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
     padding: 10px 20px;
-    background-color: #e6f9fc; /* Match the background color of the main content */
-}
-
-header img {
-    height: 50px;
-    margin-right: 20px;
-}
-
-header nav {
-    display: flex;
-    gap: 20px;
-}
-
-header nav a {
-    text-decoration: none;
-    font-weight: bold;
-}
-
-header .search-cart {
+    background-color: #e0f7fa; /* Light blue background */
+  }
+  
+  .header .logo {
     display: flex;
     align-items: center;
-    gap: 10px;
-}
-
+  }
+  
+  .header .logo img {
+    height: 50px; /* Adjust size as needed */
+    margin-right: 10px;
+  }
+  
+  .header nav {
+    display: flex;
+    align-items: center;
+  }
+  
+  .header nav a {
+    margin: 0 15px;
+    color: #333; /* Dark text color */
+    text-decoration: none;
+    font-size: 16px;
+  }
+  
+  .header .search-bar {
+    flex-grow: 1;
+    margin: 0 20px;
+    position: relative;
+  }
+  
+  .header .search-bar input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 25px;
+    border: 1px solid #ccc;
+  }
+  
+  .header .cart-icon {
+    position: relative;
+  }
+  
+  .header .cart-icon img {
+    height: 30px; /* Adjust size as needed */
+  }
+  
+  /* Main Banner */
+  .banner {
+    text-align: center;
+    padding: 50px 20px;
+    background-size: cover;
+    color: #fff;
+  }
+  
+  .banner h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+  }
+  
+  .banner p {
+    font-size: 18px;
+    margin-bottom: 30px;
+  }
+  
+  .banner .cta-button {
+    padding: 15px 30px;
+    background-color: #000;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 25px;
+  }
+  
+  /* Sections */
+  .section {
+    padding: 40px 20px;
+  }
+  
+  .section .section-title {
+    font-size: 32px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .section .section-content {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  
+  .section .section-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .section .section-content p {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  
+  /* Footer */
+  .footer {
+    background-color: #e0f7fa;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .footer .footer-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .footer .footer-links a {
+    margin: 0 15px;
+    color: #333;
+    text-decoration: none;
+  }
+  
+  .footer .social-icons {
+    margin-top: 20px;
+  }
+  
+  .footer .social-icons img {
+    height: 30px;
+    margin: 0 10px;
+  }
+  
