@@ -36,3 +36,7 @@
     transform: rotate(360deg);
   }
 }
+header, section, footer {
+  box-sizing: border-box;
+  width: 100%;
+}
