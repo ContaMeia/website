@@ -1,0 +1,22 @@
+/* src/pages/admin/AdminLayout.css */
+.admin-layout nav {
+    display: flex;
+    background: #004d40;
+    padding: 10px;
+  }
+  
+  .admin-layout nav a {
+    color: #fff;
+    margin: 0 10px;
+    text-decoration: none;
+  }
+  
+  .admin-layout nav a:hover {
+    text-decoration: underline;
+  }
+  
+  .admin-content {
+    padding: 20px;
+    margin: 20px;
+  }
+  

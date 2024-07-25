@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 function Home() {
   return (
     <div>
+      
       <section className="hero">
         <h1>Nova coleção de Outono 2024 Disponível</h1>
         <p>Explore our new collection...</p>

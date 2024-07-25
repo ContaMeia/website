@@ -1,21 +1,21 @@
-/* src/styles.css */
-.admin-new-product {
+/* src/pages/admin/AdminForm.css */
+.admin-new-product, .admin-edit-product {
     padding: 20px;
     margin: 20px;
   }
   
-  .admin-new-product form {
+  .admin-new-product form, .admin-edit-product form {
     display: flex;
     flex-direction: column;
   }
   
-  .admin-new-product form input {
+  .admin-new-product form input, .admin-edit-product form input {
     margin-bottom: 10px;
     padding: 10px;
     border: 1px solid #ccc;
   }
   
-  .admin-new-product form button {
+  .admin-new-product form button, .admin-edit-product form button {
     padding: 10px;
     background-color: #00796b;
     color: #fff;

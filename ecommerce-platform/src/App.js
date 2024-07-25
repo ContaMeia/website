@@ -15,6 +15,7 @@ import AdminLayout from './pages/admin/AdminLayout';
 import AdminProducts from './pages/admin/AdminProducts';
 import AdminNewProduct from './pages/admin/AdminNewProduct';
 import AdminEditProduct from './pages/admin/AdminEditProduct';
+import TestComponent from './pages/admin/TestComponent';  // Import the TestComponent
 import Header from './components/Header';
 import Footer from './components/Footer';
 
@@ -38,6 +39,7 @@ function App() {
           <Route path="products/new" element={<AdminNewProduct />} />
           <Route path="products/edit/:id" element={<AdminEditProduct />} />
         </Route>
+        <Route path="/admin/test" element={<TestComponent />} /> {/* Add the TestComponent route */}
       </Routes>
       <Footer />
     </Router>

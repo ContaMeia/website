@@ -1,6 +1,7 @@
 // src/pages/admin/AdminLayout.js
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './AdminLayout.css';
 
 function AdminLayout({ children }) {
   return (

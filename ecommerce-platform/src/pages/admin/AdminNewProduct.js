@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { db } from '../../firebase';
 import { collection, addDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
+import './AdminForm.css';
 
 function AdminNewProduct() {
   const [product, setProduct] = useState({
@@ -19,12 +20,17 @@ function AdminNewProduct() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await addDoc(collection(db, 'products'), product);
-    navigate('/admin/products');
+    try {
+      await addDoc(collection(db, 'products'), product);
+      navigate('/admin/products');
+    } catch (error) {
+      console.error('Error adding document: ', error);
+    }
   };
 
   return (
     <div className="admin-new-product">
+        console.log('AdminNewProduct component rendered');
       <h1>Add New Product</h1>
       <form onSubmit={handleSubmit}>
         <input type="text" name="name" placeholder="Name" value={product.name} onChange={handleChange} required />
