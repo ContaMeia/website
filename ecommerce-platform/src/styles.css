@@ -2,7 +2,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  background-color: var(--global-color); /* Use global color */
+  background-color: #9714; /* Use global color */
 }
 
 header, section, footer {

@@ -11,13 +11,13 @@ const Header = () => {
             <img src="/images/logo.png" alt="Corta&Meia" />
           </Link>
         </div>
-        <nav className="header-nav">
-          <Link to="/products">Produtos</Link>
-          <Link to="/collections">Coleções</Link>
+        <div className="header-nav">
+          <Link to="/shop">Produtos</Link>
+          <Link to="/shop">Coleções</Link>
           <Link to="/sustainability">Sustentabilidade</Link>
-          <Link to="/about">Sobre Nós</Link>
+          <Link to="/about-us">Sobre Nós</Link>
           <Link to="/contact">Contactos</Link>
-        </nav>
+        </div>
         <div className="header-actions">
           <div className="header-search">
             <input type="text" placeholder="Search for products..." />

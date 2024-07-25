@@ -1,4 +1,5 @@
-.home{
+.home {
+  position: relative;
   z-index: 10;
 }
 
@@ -134,6 +135,7 @@
 
 .sustainability-text {
   flex: 2;
+  color: #000;
 }
 
 .sustainability-text h2 {
@@ -177,6 +179,9 @@
   font-size: 24px;
   text-align: center;
   margin-bottom: 10px;
+  color: #000;
+  padding-top: 20px;
+  padding-bottom: 10px;
 }
 
 .container {
@@ -193,6 +198,7 @@
   grid-template-columns: repeat(2, 1fr); /* 2 columns */
   grid-auto-rows: minmax(100px, auto);
   gap: 30px;
+  padding-bottom: 30px;
 }
 
 .product-search-item {
@@ -340,10 +346,13 @@
   text-align: center;
   border-radius: 10px;
   margin: 20px 0;
-  width: 75%;
+  width: 60%;
+  margin-left: 20%;
+  margin-right: 20%;
   margin-bottom: -80px;
   z-index: 10;
   align-items: center;
+
 
 }
 
@@ -351,6 +360,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
+  align-items: center;
 }
 
 .newsletter h2 {
@@ -362,6 +372,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  
 }
 
 .newsletter-form input[type="email"] {
