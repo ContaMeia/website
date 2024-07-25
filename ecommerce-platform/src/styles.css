@@ -1,0 +1,69 @@
+/* src/styles.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e0f7fa;
+    color: #333;
+  }
+  
+  header, footer {
+    background: #00695c;
+    color: #fff;
+    padding: 10px 20px;
+  }
+  
+  header nav a, footer a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #fff;
+  }
+  
+  .contact, .faq, .admin-products, .admin-new-product, .admin-edit-product {
+    padding: 20px;
+    margin: 20px;
+  }
+  
+  .contact form, .admin-new-product form, .admin-edit-product form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .contact form input, .contact form textarea, .admin-new-product form input, .admin-edit-product form input {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+  
+  .contact form button, .admin-new-product form button, .admin-edit-product form button {
+    padding: 10px;
+    background-color: #00796b;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .faq-item {
+    margin: 10px 0;
+  }
+  
+  .faq-question {
+    cursor: pointer;
+    padding: 10px;
+    background: #b2dfdb;
+  }
+  
+  .faq-answer {
+    padding: 10px;
+    background: #e0f2f1;
+  }
+  
+  .admin-layout nav {
+    display: flex;
+    background: #004d40;
+    padding: 10px;
+  }
+  
+  .admin-layout nav a {
+    color: #fff;
+    margin: 0 10px;
+  }
+  
