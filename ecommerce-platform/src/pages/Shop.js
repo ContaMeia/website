@@ -1,41 +1,27 @@
 // src/pages/Shop.js
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { db } from '../firebase';
-import { collection, getDocs } from 'firebase/firestore';
+import React from 'react';
+import './Shop.css';
 
 function Shop() {
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const productsCollection = await getDocs(collection(db, 'products'));
-      setProducts(productsCollection.docs.map(doc => ({ id: doc.id, ...doc.data() })));
-    };
-
-    fetchProducts();
-  }, []);
+  const products = [
+    { id: 1, name: 'Colar Aqua Fixe', price: '12€', image: '/images/product1.jpg' },
+    { id: 2, name: 'Black Striped T-shirt', price: '15€', image: '/images/product2.jpg' },
+    // Add more products as needed
+  ];
 
   return (
     <div className="shop">
-      <aside>
-        <h2>Filtros</h2>
-        {/* Implement filters here */}
-      </aside>
-      <main>
-        <h1>Produtos</h1>
-        <div className="product-list">
-          {products.map((product, index) => (
-            <Link to={`/product/${product.id}`} key={index}>
-              <div className="product-card">
-                <img src={product.image} alt={product.name} />
-                <h3>{product.name}</h3>
-                <p>{product.price}€</p>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </main>
+      <h1>Produtos</h1>
+      <div className="products">
+        {products.map(product => (
+          <div key={product.id} className="product">
+            <img src={product.image} alt={product.name} />
+            <h2>{product.name}</h2>
+            <p>{product.price}</p>
+            <button>Adicionar ao Carrinho</button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

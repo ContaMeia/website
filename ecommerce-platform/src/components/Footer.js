@@ -4,12 +4,11 @@ import './Footer.css';
 
 function Footer() {
   return (
-    <footer>
+    <footer className="footer">
       <p>Conta&Meia © 2023-2024, All Rights Reserved</p>
-      <div>
-        <a href="https://www.facebook.com">Facebook</a>
-        <a href="https://www.instagram.com">Instagram</a>
-      </div>
+      <p>
+        <a href="https://facebook.com">Facebook</a> | <a href="https://instagram.com">Instagram</a>
+      </p>
     </footer>
   );
 }

@@ -1,0 +1,39 @@
+/* src/pages/Home.css */
+.home {
+    padding: 20px;
+    background-color: #e0f7fa;
+  }
+  
+  .home h1 {
+    font-size: 2em;
+    color: #006064;
+  }
+  
+  .home .collections {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+  
+  .home .collection {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center;
+  }
+  
+  .home .collection img {
+    max-width: 100%;
+    border-radius: 10px;
+  }
+  
+  .home .collection h2 {
+    font-size: 1.5em;
+    color: #004d40;
+  }
+  
+  .home .collection p {
+    color: #004d40;
+  }
+  

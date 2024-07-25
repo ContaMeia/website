@@ -22,3 +22,16 @@
     background-color: #f0f0f0;
   }
   
+  .admin-products button {
+    background-color: #00796b;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .admin-products button:hover {
+    background-color: #004d40;
+  }
+  

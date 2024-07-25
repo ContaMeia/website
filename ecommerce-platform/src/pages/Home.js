@@ -1,34 +1,33 @@
 // src/pages/Home.js
 import React from 'react';
-import { Link } from 'react-router-dom';
+import './Home.css';
 
 function Home() {
   return (
-    <div>
-      
-      <section className="hero">
-        <h1>Nova coleção de Outono 2024 Disponível</h1>
-        <p>Explore our new collection...</p>
-        <Link to="/shop"><button>Ver Coleção</button></Link>
-      </section>
-      <section className="sustainability">
-        <h2>Sustentabilidade</h2>
-        <p>At Conta&Meia, we strive to create...</p>
-        <Link to="/sustainability"><button>Saber Mais</button></Link>
-      </section>
-      <section className="search-by-type">
-        <h2>Pesquisa por tipo de Joia</h2>
-        <div className="categories">
-          <Link to="/shop?category=anéis"><div>Anéis</div></Link>
-          <Link to="/shop?category=pulseiras"><div>Pulseiras</div></Link>
-          <Link to="/shop?category=colares"><div>Colares</div></Link>
-          <Link to="/shop?category=brincos"><div>Brincos</div></Link>
+    <div className="home">
+      <h1>Nova coleção de Outono 2024 Disponivel</h1>
+      <div className="collections">
+        <div className="collection">
+          <img src="/images/collection1.jpg" alt="Collection 1" />
+          <h2>Colares</h2>
+          <p>Explore a nossa coleção de colares.</p>
         </div>
-      </section>
-      <section className="testimonials">
-        <h2>Os Nossos Clientes Satisfeitos</h2>
-        <p>Testimonials...</p>
-      </section>
+        <div className="collection">
+          <img src="/images/collection2.jpg" alt="Collection 2" />
+          <h2>Pulseiras</h2>
+          <p>Descubra a nossa variedade de pulseiras.</p>
+        </div>
+        <div className="collection">
+          <img src="/images/collection3.jpg" alt="Collection 3" />
+          <h2>Anéis</h2>
+          <p>Veja os nossos anéis exclusivos.</p>
+        </div>
+        <div className="collection">
+          <img src="/images/collection4.jpg" alt="Collection 4" />
+          <h2>Brincos</h2>
+          <p>Encontre brincos únicos e elegantes.</p>
+        </div>
+      </div>
     </div>
   );
 }
