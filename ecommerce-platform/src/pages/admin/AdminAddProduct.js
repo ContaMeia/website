@@ -1,12 +1,10 @@
-// src/pages/admin/AdminEditProduct.js
-import React, { useState, useEffect } from 'react';
+// src/pages/admin/AdminAddProduct.js
+import React, { useState } from 'react';
 import { db } from '../../firebase';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
-import { useParams } from 'react-router-dom';
+import { collection, addDoc } from 'firebase/firestore';
 import './AdminForm.css';
 
-function AdminEditProduct() {
-  const { id } = useParams();
+function AdminAddProduct() {
   const [product, setProduct] = useState({
     name: '',
     type: '',
@@ -15,18 +13,6 @@ function AdminEditProduct() {
     image: ''
   });
 
-  useEffect(() => {
-    const fetchProduct = async () => {
-      const productRef = doc(db, 'products', id);
-      const productSnap = await getDoc(productRef);
-      if (productSnap.exists()) {
-        setProduct(productSnap.data());
-      }
-    };
-
-    fetchProduct();
-  }, [id]);
-
   const handleChange = (e) => {
     setProduct({ ...product, [e.target.name]: e.target.value });
   };
@@ -34,27 +20,26 @@ function AdminEditProduct() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const productRef = doc(db, 'products', id);
-      await updateDoc(productRef, product);
+      await addDoc(collection(db, 'products'), product);
       // Optionally, you can navigate to the products list
     } catch (error) {
-      console.error('Error updating document: ', error);
+      console.error('Error adding document: ', error);
     }
   };
 
   return (
-    <div className="admin-edit-product">
-      <h1>Editar Produto</h1>
+    <div className="admin-add-product">
+      <h1>Criar Produto</h1>
       <form onSubmit={handleSubmit}>
         <input type="text" name="name" placeholder="Nome da Peça" value={product.name} onChange={handleChange} required />
         <input type="text" name="type" placeholder="Tipo de Peça" value={product.type} onChange={handleChange} required />
         <input type="number" name="price" placeholder="Preço" value={product.price} onChange={handleChange} required />
         <input type="number" name="stock" placeholder="Quantidade em Stock" value={product.stock} onChange={handleChange} required />
         <input type="text" name="image" placeholder="URL da Imagem" value={product.image} onChange={handleChange} required />
-        <button type="submit">Guardar</button>
+        <button type="submit">Criar</button>
       </form>
     </div>
   );
 }
 
-export default AdminEditProduct;
+export default AdminAddProduct;

@@ -12,12 +12,17 @@ import Sustainability from './pages/Sustainability';
 import Contact from './pages/Contact';
 import FAQ from './pages/FAQ';
 import AdminLayout from './pages/admin/AdminLayout';
+import AdminDashboard from './pages/admin/AdminDashboard';
+import AdminOrders from './pages/admin/AdminOrders';
 import AdminProducts from './pages/admin/AdminProducts';
-import AdminNewProduct from './pages/admin/AdminNewProduct';
+import AdminClients from './pages/admin/AdminClients';
+import AdminAddProduct from './pages/admin/AdminAddProduct';
 import AdminEditProduct from './pages/admin/AdminEditProduct';
-import TestComponent from './pages/admin/TestComponent';  // Import the TestComponent
+import AdminCreateCollection from './pages/admin/AdminCreateCollection';
+import Login from './pages/admin/Login';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
@@ -34,12 +39,23 @@ function App() {
         <Route path="/sustainability" element={<Sustainability />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/faq" element={<FAQ />} />
-        <Route path="/admin" element={<AdminLayout />}>
+        <Route path="/admin/login" element={<Login />} />
+        <Route 
+          path="/admin" 
+          element={
+            <ProtectedRoute>
+              <AdminLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route path="dashboard" element={<AdminDashboard />} />
+          <Route path="orders" element={<AdminOrders />} />
           <Route path="products" element={<AdminProducts />} />
-          <Route path="products/new" element={<AdminNewProduct />} />
+          <Route path="products/new" element={<AdminAddProduct />} />
           <Route path="products/edit/:id" element={<AdminEditProduct />} />
+          <Route path="clients" element={<AdminClients />} />
+          <Route path="collections" element={<AdminCreateCollection />} />
         </Route>
-        <Route path="/admin/test" element={<TestComponent />} /> {/* Add the TestComponent route */}
       </Routes>
       <Footer />
     </Router>

@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import './AdminForm.css';
 
 function AdminNewProduct() {
+  console.log('AdminNewProduct component rendered');
+
   const [product, setProduct] = useState({
     name: '',
     description: '',
@@ -30,7 +32,6 @@ function AdminNewProduct() {
 
   return (
     <div className="admin-new-product">
-        console.log('AdminNewProduct component rendered');
       <h1>Add New Product</h1>
       <form onSubmit={handleSubmit}>
         <input type="text" name="name" placeholder="Name" value={product.name} onChange={handleChange} required />

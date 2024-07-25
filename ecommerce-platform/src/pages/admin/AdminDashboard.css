@@ -1,0 +1,23 @@
+/* src/pages/admin/AdminDashboard.css */
+.admin-dashboard {
+    padding: 20px;
+    margin: 20px;
+  }
+  
+  .admin-dashboard h1 {
+    text-align: center;
+  }
+  
+  .admin-dashboard .stats {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+  }
+  
+  .admin-dashboard .stats div {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
