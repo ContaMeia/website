@@ -2,13 +2,11 @@
 .shop {
   display: flex;
   padding: 20px;
-  background-color: #e0f7fa;
 }
 
 .filters {
   flex: 1;
   max-width: 250px;
-  background-color: #ffffff;
   padding: 20px;
   margin-right: 20px;
   border-radius: 10px;
@@ -53,10 +51,8 @@
 
 .products-container {
   flex: 3;
-  background-color: #ffffff;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 .products-container h1 {
@@ -72,27 +68,32 @@
 }
 
 .product {
-  background-color: #ffffff;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  
   text-align: center;
 }
 
 .product img {
   max-width: 100%;
+  height: auto;
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
   border-radius: 10px;
 }
 
 .product h2 {
-  font-size: 1.5em;
+  font-size: 1em;
   color: #004d40;
   margin: 10px 0;
+  text-align: left;
 }
 
 .product p {
   color: #004d40;
   margin: 10px 0;
+  text-align: left;
 }
 
 .product button {

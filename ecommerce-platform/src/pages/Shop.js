@@ -8,8 +8,18 @@ function Shop() {
   const [selectedCollection, setSelectedCollection] = useState('');
 
   const products = [
-    { id: 1, name: 'Colar Aqua Fixe', price: 12, category: 'Colares', collection: 'Coleção 1', image: '/images/product1.jpg' },
-    { id: 2, name: 'Black Striped T-shirt', price: 15, category: 'Brincos', collection: 'Coleção 1', image: '/images/product2.jpg' },
+    { id: 1, name: 'Colar Aqua Fixe', price: 12, category: 'Colares', collection: 'Coleção 1', image: '/images/necklaces.jpg' },
+    { id: 2, name: 'Black Striped Brinco', price: 15, category: 'Brincos', collection: 'Coleção 1', image: '/images/earrings.jpg' },
+    { id: 3, name: 'Colar Aqua Fixe', price: 17, category: 'Colares', collection: 'Coleção 1', image: '/images/necklaces.jpg' },
+    { id: 4, name: 'Black Striped Brinco', price: 11, category: 'Brincos', collection: 'Coleção 1', image: '/images/earrings.jpg' },   
+    { id: 5, name: 'Black Striped Brinco', price: 12, category: 'Brincos', collection: 'Coleção 1', image: '/images/earrings.jpg' },
+    { id: 6, name: 'Colar Aqua Fixe', price: 12, category: 'Colares', collection: 'Coleção 1', image: '/images/necklaces.jpg' },
+    { id: 7, name: 'Black Striped Brinco', price: 15, category: 'Brincos', collection: 'Coleção 1', image: '/images/earrings.jpg' },
+    { id: 8, name: 'Colar Aqua Fixe', price: 17, category: 'Colares', collection: 'Coleção 1', image: '/images/necklaces.jpg' },
+    { id: 9, name: 'Black Striped Brinco', price: 11, category: 'Brincos', collection: 'Coleção 1', image: '/images/earrings.jpg' },   
+    { id: 11, name: 'Colar Aqua Fixe', price: 12, category: 'Colares', collection: 'Coleção 1', image: '/images/necklaces.jpg' },
+    { id: 12, name: 'Colar Aqua Fixe', price: 12, category: 'Colares', collection: 'Coleção 1', image: '/images/necklaces.jpg' },
+    { id: 10, name: 'Black Striped Brinco', price: 12, category: 'Brincos', collection: 'Coleção 1', image: '/images/earrings.jpg' },
     // Add more products as needed
   ];
 
@@ -68,7 +78,6 @@ function Shop() {
               <img src={product.image} alt={product.name} />
               <h2>{product.name}</h2>
               <p>{product.price}€</p>
-              <button>Adicionar ao Carrinho</button>
             </div>
           ))}
         </div>
