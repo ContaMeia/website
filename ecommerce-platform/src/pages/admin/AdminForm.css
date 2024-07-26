@@ -1,25 +1,56 @@
 /* src/pages/admin/AdminForm.css */
-.admin-new-product, .admin-edit-product {
-    padding: 20px;
-    margin: 20px;
-  }
-  
-  .admin-new-product form, .admin-edit-product form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .admin-new-product form input, .admin-edit-product form input {
-    margin-bottom: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-  }
-  
-  .admin-new-product form button, .admin-edit-product form button {
-    padding: 10px;
-    background-color: #00796b;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-  }
-  
+.admin-new-product {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.admin-new-product h1 {
+  font-size: 1.8em;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.admin-new-product form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.admin-new-product .form-group {
+  display: flex;
+  gap: 10px;
+}
+
+.admin-new-product input,
+.admin-new-product select,
+.admin-new-product textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1em;
+}
+
+.admin-new-product textarea {
+  height: 100px;
+}
+
+.admin-new-product button {
+  padding: 10px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+  align-self: center;
+}
+
+.admin-new-product button:hover {
+  background-color: #0056b3;
+}

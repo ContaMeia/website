@@ -1,0 +1,23 @@
+/* src/pages/admin/AdminCollections.css */
+.admin-collections {
+    padding: 20px;
+  }
+  
+  .admin-collections h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+  
+  .create-collection-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .create-collection-button:hover {
+    background-color: #0056b3;
+  }
+  

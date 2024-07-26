@@ -1,27 +1,30 @@
 // src/pages/Shop.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { db } from '../firebase';
+import { collection, getDocs } from 'firebase/firestore';
 import './Shop.css';
 
 function Shop() {
+  const [products, setProducts] = useState([]);
   const [priceRange, setPriceRange] = useState([0, 20]);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedCollection, setSelectedCollection] = useState('');
+  const [collections, setCollections] = useState([]);
 
-  const products = [
-    { id: 1, name: 'Colar Aqua Fixe', price: 12, category: 'Colares', collection: 'Coleção 1', image: '/images/necklaces.jpg' },
-    { id: 2, name: 'Black Striped Brinco', price: 15, category: 'Brincos', collection: 'Coleção 1', image: '/images/earrings.jpg' },
-    { id: 3, name: 'Colar Aqua Fixe', price: 17, category: 'Colares', collection: 'Coleção 1', image: '/images/necklaces.jpg' },
-    { id: 4, name: 'Black Striped Brinco', price: 11, category: 'Brincos', collection: 'Coleção 1', image: '/images/earrings.jpg' },   
-    { id: 5, name: 'Black Striped Brinco', price: 12, category: 'Brincos', collection: 'Coleção 1', image: '/images/earrings.jpg' },
-    { id: 6, name: 'Colar Aqua Fixe', price: 12, category: 'Colares', collection: 'Coleção 1', image: '/images/necklaces.jpg' },
-    { id: 7, name: 'Black Striped Brinco', price: 15, category: 'Brincos', collection: 'Coleção 1', image: '/images/earrings.jpg' },
-    { id: 8, name: 'Colar Aqua Fixe', price: 17, category: 'Colares', collection: 'Coleção 1', image: '/images/necklaces.jpg' },
-    { id: 9, name: 'Black Striped Brinco', price: 11, category: 'Brincos', collection: 'Coleção 1', image: '/images/earrings.jpg' },   
-    { id: 11, name: 'Colar Aqua Fixe', price: 12, category: 'Colares', collection: 'Coleção 1', image: '/images/necklaces.jpg' },
-    { id: 12, name: 'Colar Aqua Fixe', price: 12, category: 'Colares', collection: 'Coleção 1', image: '/images/necklaces.jpg' },
-    { id: 10, name: 'Black Striped Brinco', price: 12, category: 'Brincos', collection: 'Coleção 1', image: '/images/earrings.jpg' },
-    // Add more products as needed
-  ];
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const productCollection = await getDocs(collection(db, 'products'));
+      setProducts(productCollection.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+    };
+
+    const fetchCollections = async () => {
+      const collectionCollection = await getDocs(collection(db, 'collections'));
+      setCollections(collectionCollection.docs.map(doc => doc.data()));
+    };
+
+    fetchProducts();
+    fetchCollections();
+  }, []);
 
   const handlePriceChange = (event) => {
     setPriceRange([0, event.target.value]);
@@ -62,10 +65,9 @@ function Shop() {
         <div className="filter-collection">
           <h2>Coleção</h2>
           <ul>
-            <li onClick={() => setSelectedCollection('Coleção 1')}>Coleção 1</li>
-            <li onClick={() => setSelectedCollection('Coleção 2')}>Coleção 2</li>
-            <li onClick={() => setSelectedCollection('Coleção 3')}>Coleção 3</li>
-            <li onClick={() => setSelectedCollection('Coleção 4')}>Coleção 4</li>
+            {collections.map((col, index) => (
+              <li key={index} onClick={() => setSelectedCollection(col.name)}>{col.name}</li>
+            ))}
           </ul>
         </div>
         <button className="apply-filter">Aplicar Filtro</button>
@@ -73,13 +75,17 @@ function Shop() {
       <div className="products-container">
         <h1>Produtos</h1>
         <div className="products">
-          {filteredProducts.map(product => (
-            <div key={product.id} className="product">
-              <img src={product.image} alt={product.name} />
-              <h2>{product.name}</h2>
-              <p>{product.price}€</p>
-            </div>
-          ))}
+          {filteredProducts.map(product => {
+            const imageUrl = product.mainImage;
+            console.log('Image URL:', imageUrl); // Log the image URL for debugging
+            return (
+              <div key={product.id} className="product">
+                <img src={imageUrl} alt={product.name} />
+                <h2>{product.name}</h2>
+                <p>{product.price}€</p>
+              </div>
+            );
+          })}
         </div>
         <div className="pagination">
           <button>Anterior</button>

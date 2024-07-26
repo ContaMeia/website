@@ -1,31 +1,97 @@
 /* src/pages/admin/AdminLayout.css */
+
 .admin-layout {
-    display: flex;
-    min-height: 100vh;
-  }
-  
-  nav {
-    width: 200px;
-    background-color: #00796b;
-    padding: 20px;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-  }
-  
-  nav a {
-    display: block;
-    color: white;
-    text-decoration: none;
-    margin-bottom: 10px;
-    padding: 10px;
-    border-radius: 5px;
-  }
-  
-  nav a:hover {
-    background-color: #004d40;
-  }
-  
-  .admin-content {
-    flex-grow: 1;
-    padding: 20px;
-  }
-  
+  display: flex;
+  height: 100vh;
+  background-color: #f4f4f4;
+  font-family: 'Arial', sans-serif;
+}
+
+nav {
+  width: 250px;
+  background-color: #e3f2fd;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+nav a, nav button {
+  text-decoration: none;
+  color: #333;
+  margin-bottom: 10px;
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 5px;
+  width: 100%;
+  text-align: left;
+  transition: background-color 0.3s;
+}
+
+nav a:hover {
+  background-color: #bbdefb;
+}
+
+nav button.logout {
+  background-color: #ff6f61;
+  color: white;
+  margin-top: auto;
+}
+
+nav button.logout:hover {
+  background-color: #e65c54;
+}
+
+.admin-content {
+  flex-grow: 1;
+  padding: 20px;
+  background-color: #ffffff;
+  overflow-y: auto;
+}
+
+nav button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.admin-content h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.admin-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.admin-content table th,
+.admin-content table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+}
+
+.admin-content table th {
+  background-color: #f5f5f5;
+}
+
+.admin-content table td a {
+  text-decoration: none;
+  color: #007bff;
+  margin-right: 10px;
+}
+
+.admin-content table td button {
+  background-color: #dc3545;
+  color: #ffffff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.admin-content table td button:hover {
+  background-color: #c82333;
+}

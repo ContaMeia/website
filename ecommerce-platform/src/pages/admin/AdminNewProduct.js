@@ -1,20 +1,34 @@
 // src/pages/admin/AdminNewProduct.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { db } from '../../firebase';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, getDocs } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import './AdminForm.css';
 
 function AdminNewProduct() {
-  console.log('AdminNewProduct component rendered');
-
   const [product, setProduct] = useState({
     name: '',
+    code: '',
     description: '',
     price: '',
-    image: ''
+    discount: '',
+    stock: '',
+    type: '',
+    collection: '',
+    mainImage: '',
+    secondaryImage: ''
   });
+  const [collections, setCollections] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchCollections = async () => {
+      const collectionCollection = await getDocs(collection(db, 'collections'));
+      setCollections(collectionCollection.docs.map(doc => doc.data()));
+    };
+
+    fetchCollections();
+  }, []);
 
   const handleChange = (e) => {
     setProduct({ ...product, [e.target.name]: e.target.value });
@@ -32,13 +46,38 @@ function AdminNewProduct() {
 
   return (
     <div className="admin-new-product">
-      <h1>Add New Product</h1>
+      <h1>Criar Produto</h1>
       <form onSubmit={handleSubmit}>
-        <input type="text" name="name" placeholder="Name" value={product.name} onChange={handleChange} required />
-        <input type="text" name="description" placeholder="Description" value={product.description} onChange={handleChange} required />
-        <input type="number" name="price" placeholder="Price" value={product.price} onChange={handleChange} required />
-        <input type="text" name="image" placeholder="Image URL" value={product.image} onChange={handleChange} required />
-        <button type="submit">Add Product</button>
+        <div className="form-group">
+          <input type="text" name="name" placeholder="Nome da Peça" value={product.name} onChange={handleChange} required />
+          <input type="text" name="code" placeholder="Código da Peça" value={product.code} onChange={handleChange} required />
+        </div>
+        <div className="form-group">
+          <select name="type" value={product.type} onChange={handleChange} required>
+            <option value="">Tipo de Peça</option>
+            <option value="colar">Colar</option>
+            <option value="pulseira">Pulseira</option>
+            <option value="anel">Anel</option>
+            <option value="brinco">Brinco</option>
+          </select>
+          <select name="collection" value={product.collection} onChange={handleChange} required>
+            <option value="">Coleção</option>
+            {collections.map((col, index) => (
+              <option key={index} value={col.name}>{col.name}</option>
+            ))}
+          </select>
+        </div>
+        <textarea name="description" placeholder="Descrição" value={product.description} onChange={handleChange} required />
+        <div className="form-group">
+          <input type="number" name="price" placeholder="Preço" value={product.price} onChange={handleChange} required />
+          <input type="number" name="discount" placeholder="Desconto em % (se não tiver inserir 0)" value={product.discount} onChange={handleChange} required />
+        </div>
+        <input type="number" name="stock" placeholder="Quantidade em Stock" value={product.stock} onChange={handleChange} required />
+        <div className="form-group">
+          <input type="text" name="mainImage" placeholder="URL da Foto Principal" value={product.mainImage} onChange={handleChange} required />
+          <input type="text" name="secondaryImage" placeholder="URL da Foto Secundária" value={product.secondaryImage} onChange={handleChange} required />
+        </div>
+        <button type="submit">Criar</button>
       </form>
     </div>
   );
