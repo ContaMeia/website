@@ -1,9 +1,11 @@
 // src/pages/admin/AdminNewProduct.js
 import React, { useState, useEffect } from 'react';
-import { db } from '../../firebase';
+import { db, storage } from '../../firebase';
 import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { useNavigate } from 'react-router-dom';
 import './AdminForm.css';
+
 
 function AdminNewProduct() {
   const [product, setProduct] = useState({
@@ -18,6 +20,8 @@ function AdminNewProduct() {
     mainImage: '',
     secondaryImage: ''
   });
+  const [mainImageFile, setMainImageFile] = useState(null);
+  const [secondaryImageFile, setSecondaryImageFile] = useState(null);
   const [collections, setCollections] = useState([]);
   const navigate = useNavigate();
 
@@ -34,10 +38,39 @@ function AdminNewProduct() {
     setProduct({ ...product, [e.target.name]: e.target.value });
   };
 
+  const handleImageChange = (e) => {
+    if (e.target.name === 'mainImageFile') {
+      setMainImageFile(e.target.files[0]);
+    } else if (e.target.name === 'secondaryImageFile') {
+      setSecondaryImageFile(e.target.files[0]);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await addDoc(collection(db, 'products'), product);
+      let mainImageUrl = '';
+      let secondaryImageUrl = '';
+
+      if (mainImageFile) {
+        const mainImageRef = ref(storage, `images/${mainImageFile.name}`);
+        await uploadBytes(mainImageRef, mainImageFile);
+        mainImageUrl = await getDownloadURL(mainImageRef);
+      }
+
+      if (secondaryImageFile) {
+        const secondaryImageRef = ref(storage, `images/${secondaryImageFile.name}`);
+        await uploadBytes(secondaryImageRef, secondaryImageFile);
+        secondaryImageUrl = await getDownloadURL(secondaryImageRef);
+      }
+
+      const productData = {
+        ...product,
+        mainImage: mainImageUrl,
+        secondaryImage: secondaryImageUrl
+      };
+
+      await addDoc(collection(db, 'products'), productData);
       navigate('/admin/products');
     } catch (error) {
       console.error('Error adding document: ', error);
@@ -74,8 +107,8 @@ function AdminNewProduct() {
         </div>
         <input type="number" name="stock" placeholder="Quantidade em Stock" value={product.stock} onChange={handleChange} required />
         <div className="form-group">
-          <input type="text" name="mainImage" placeholder="URL da Foto Principal" value={product.mainImage} onChange={handleChange} required />
-          <input type="text" name="secondaryImage" placeholder="URL da Foto Secundária" value={product.secondaryImage} onChange={handleChange} required />
+          <input type="file" name="mainImageFile" onChange={handleImageChange} required />
+          <input type="file" name="secondaryImageFile" onChange={handleImageChange} required />
         </div>
         <button type="submit">Criar</button>
       </form>

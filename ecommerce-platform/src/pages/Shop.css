@@ -1,4 +1,9 @@
 /* src/pages/Shop.css */
+.loja {
+  position: relative;
+  z-index: 10;
+}
+
 .shop {
   display: flex;
   padding: 20px;
@@ -127,4 +132,62 @@
 
 .pagination button:hover {
   background-color: #004d40;
+}
+.newsletter {
+  background-color: #000;
+  color: #fff;
+  padding: 40px 0;
+  text-align: center;
+  border-radius: 10px;
+  margin: 20px 0;
+  width: 60%;
+  margin-left: 20%;
+  margin-right: 20%;
+  margin-bottom: -80px;
+  z-index: 10;
+  align-items: center;
+
+
+}
+
+.newsletter-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  align-items: center;
+}
+
+.newsletter h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.newsletter-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.newsletter-form input[type="email"] {
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 20px 0 0 20px;
+  outline: none;
+  width: 300px;
+}
+
+.newsletter-form button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 0 20px 20px 0;
+  background-color: #fff;
+  color: #000;
+  cursor: pointer;
+}
+
+.newsletter-form input[type="email"]::placeholder {
+  color: #aaa;
 }
