@@ -1,21 +1,24 @@
-// src/pages/Shop.js
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'; // Import Link
 import { db } from '../firebase';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './Shop.css';
 
 function Shop() {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [priceRange, setPriceRange] = useState([0, 20]);
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState(location.state?.filter || '');
   const [selectedCollection, setSelectedCollection] = useState('');
   const [collections, setCollections] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
       const productCollection = await getDocs(collection(db, 'products'));
       setProducts(productCollection.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+      setFilteredProducts(productCollection.docs.map(doc => ({ id: doc.id, ...doc.data() })));
     };
 
     const fetchCollections = async () => {
@@ -31,25 +34,40 @@ function Shop() {
     setPriceRange([0, event.target.value]);
   };
 
-  const filteredProducts = products.filter(product => {
-    return (
-      product.price >= priceRange[0] &&
-      product.price <= priceRange[1] &&
-      (selectedCategory === '' || product.category === selectedCategory) &&
-      (selectedCollection === '' || product.collection === selectedCollection)
-    );
-  });
+  const handleFilterApply = () => {
+    const filtered = products.filter(product => {
+      return (
+        product.price >= priceRange[0] &&
+        product.price <= priceRange[1] &&
+        (selectedCategory === '' || product.type === selectedCategory) &&
+        (selectedCollection === '' || product.collection === selectedCollection)
+      );
+    });
+    setFilteredProducts(filtered);
+  };
+
+  const handleResetFilter = () => {
+    setPriceRange([0, 20]);
+    setSelectedCategory('');
+    setSelectedCollection('');
+    setFilteredProducts(products);
+  };
+
+  const handleProductClick = (id) => {
+    navigate(`/product/${id}`);
+  };
 
   return (
+    <div className='fim'>
     <div className="shop">
       <div className="filters">
         <div className="filter-category">
           <h2>Filtros</h2>
           <ul>
-            <li onClick={() => setSelectedCategory('Colares')}>Colares</li>
-            <li onClick={() => setSelectedCategory('Brincos')}>Brincos</li>
-            <li onClick={() => setSelectedCategory('Anéis')}>Anéis</li>
-            <li onClick={() => setSelectedCategory('Pulseiras')}>Pulseiras</li>
+            <li onClick={() => setSelectedCategory('colar')}>Colares</li>
+            <li onClick={() => setSelectedCategory('brinco')}>Brincos</li>
+            <li onClick={() => setSelectedCategory('anel')}>Anéis</li>
+            <li onClick={() => setSelectedCategory('pulseira')}>Pulseiras</li>
           </ul>
         </div>
         <div className="filter-price">
@@ -71,23 +89,19 @@ function Shop() {
             ))}
           </ul>
         </div>
-        <button className="apply-filter">Aplicar Filtro</button>
+        <button className="apply-filter" onClick={handleFilterApply}>Aplicar Filtro</button>
+        <button className="reset-filter" onClick={handleResetFilter}>Resetar Filtro</button>
       </div>
       <div className="products-container">
         <h1>Produtos</h1>
         <div className="products">
-          {filteredProducts.map(product => {
-            const imageUrl = product.mainImage;
-            return (
-              <div key={product.id} className="product">
-                <Link to={`/product/${product.id}`}>
-                  <img src={imageUrl} alt={product.name} />
-                  <h2>{product.name}</h2>
-                  <p>{product.price}€</p>
-                </Link>
-              </div>
-            );
-          })}
+          {filteredProducts.map(product => (
+            <div key={product.id} className="product" onClick={() => handleProductClick(product.id)}>
+              <img src={product.mainImage} alt={product.name} />
+              <h2>{product.name}</h2>
+              <p>{product.price}€</p>
+            </div>
+          ))}
         </div>
         <div className="pagination">
           <button>Anterior</button>
@@ -97,6 +111,17 @@ function Shop() {
           <button>Próximo</button>
         </div>
       </div>
+
+    </div>
+    <section className="newsletter">
+        <div className="newsletter-container">
+          <h2>Queres ficar atualizado? Nós informamos-te as novidades</h2>
+          <form className="newsletter-form">
+            <input type="email" placeholder="Insira aqui o seu Email" />
+            <button type="submit">Subscrever</button>
+          </form>
+        </div>
+      </section>
     </div>
   );
 }

@@ -1,117 +1,127 @@
-/* src/pages/Shop.css */
-.loja {
+.home {
   position: relative;
   z-index: 10;
 }
-
 .shop {
   display: flex;
   padding: 20px;
+  z-index: 10px;
 }
 
 .filters {
-  flex: 1;
-  max-width: 250px;
+  display: flex;
+  flex-direction: column;
+  width: 20%;
   padding: 20px;
-  margin-right: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  background-color: #E3F4F4; /* Light blue background */
+  border-radius: 20px;
 }
 
-.filters h2 {
-  font-size: 1.5em;
-  color: #006064;
-  margin-bottom: 10px;
+.filter-category,
+.filter-price,
+.filter-collection {
+  margin-bottom: 20px;
 }
 
-.filters ul {
-  list-style: none;
+.filter-category h2,
+.filter-price h2,
+.filter-collection h2 {
+  font-size: 1.2em; /* Reduced font size */
+  color: #004d40;
+}
+
+.filter-category ul,
+.filter-collection ul {
+  list-style-type: none;
   padding: 0;
 }
 
-.filters li {
-  margin: 10px 0;
+.filter-category li,
+.filter-collection li {
+  font-size: 1em; /* Reduced font size */
+  color: #00796b;
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: color 0.3s ease;
+}
+
+.filter-category li:hover,
+.filter-collection li:hover {
   color: #004d40;
-  cursor: pointer;
 }
 
-.filter-price input {
+.filter-price input[type="range"] {
   width: 100%;
 }
 
-.apply-filter {
-  background-color: #00796b;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 20px;
-  width: 100%;
+.filter-price span {
+  font-size: 1em; /* Reduced font size */
+  color: #00796b;
 }
 
-.apply-filter:hover {
+.apply-filter,
+.reset-filter {
   background-color: #004d40;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1em; /* Reduced font size */
+  cursor: pointer;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.reset-filter {
+  background-color: #d32f2f; /* Red background for reset button */
 }
 
 .products-container {
-  flex: 3;
+  width: 80%;
   padding: 20px;
-  border-radius: 10px;
 }
 
 .products-container h1 {
-  font-size: 2em;
-  color: #006064;
+  font-size: 1.5em; /* Reduced font size */
+  color: #004d40;
   margin-bottom: 20px;
 }
 
 .products {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 20px;
 }
 
 .product {
-  padding: 20px;
-  border-radius: 10px;
-  
-  text-align: center;
-}
-
-.product img {
-  max-width: 100%;
-  height: auto;
-  width: 200px;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 10px;
-}
-
-.product h2 {
-  font-size: 1em;
-  color: #004d40;
-  margin: 10px 0;
-  text-align: left;
-}
-
-.product p {
-  color: #004d40;
-  margin: 10px 0;
-  text-align: left;
-}
-
-.product button {
-  background-color: #00796b;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
+  background-color: white;
+  border-radius: 20px;
+  overflow: hidden;
+  width: calc(25% - 20px); /* Four products per row */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
   cursor: pointer;
 }
 
-.product button:hover {
-  background-color: #004d40;
+.product:hover {
+  transform: scale(1.05);
+}
+
+.product img {
+  width: 100%;
+  height: 200px; /* Fixed height for square images */
+  object-fit: cover;
+}
+
+.product h2 {
+  font-size: 1.2em; /* Reduced font size */
+  color: #00796b;
+  padding: 10px;
+}
+
+.product p {
+  font-size: 1em; /* Reduced font size */
+  color: #004d40;
+  padding: 0 10px 10px;
 }
 
 .pagination {
@@ -123,11 +133,12 @@
 .pagination button {
   background-color: #00796b;
   color: white;
-  padding: 10px 20px;
   border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  padding: 10px 20px;
   margin: 0 5px;
+  cursor: pointer;
+  font-size: 1em; /* Reduced font size */
+  border-radius: 10px;
 }
 
 .pagination button:hover {
