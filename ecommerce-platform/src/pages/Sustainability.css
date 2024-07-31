@@ -1,0 +1,81 @@
+.sustainability {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .sustainability-header {
+    margin-bottom: 40px;
+  }
+  
+  .sustainability-header h1 {
+    font-size: 2.5em;
+    color: #004d40;
+  }
+  
+  .sustainability-header p {
+    font-size: 1.2em;
+    color: #004d40;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .how-we-do {
+    margin-top: 40px;
+  }
+  
+  .how-we-do h2 {
+    font-size: 2em;
+    color: #004d40;
+    margin-bottom: 20px;
+  }
+  
+  .sustainability-cards {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .sustainability-card {
+    background-color: #e3f4f4;
+    border-radius: 20px;
+    padding: 20px;
+    width: 250px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .sustainability-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .sustainability-card h3 {
+    font-size: 1.5em;
+    color: #00796b;
+    border-bottom: 2px solid rgba(0, 77, 64, 0.5);
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .sustainability-card p {
+    font-size: 1.2em;
+    color: #004d40;
+  }
+  
+  .our-goal {
+    margin-top: 40px;
+  }
+  
+  .our-goal h2 {
+    font-size: 2em;
+    color: #004d40;
+    margin-bottom: 20px;
+  }
+  
+  .our-goal p {
+    font-size: 1.2em;
+    color: #004d40;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  

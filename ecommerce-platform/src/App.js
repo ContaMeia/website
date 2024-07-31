@@ -3,7 +3,9 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import Shop from './pages/Shop';
+import AboutUs from './pages/AboutUs';
 import Product from './pages/Product';
+import Sustainability from './pages/Sustainability';
 import AdminLayout from './pages/admin/AdminLayout';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminOrders from './pages/admin/AdminOrders';
@@ -24,6 +26,8 @@ function App() {
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
           <Route path="shop" element={<Shop />} />
+          <Route path="about-us" element={<AboutUs />} />
+          <Route path="sustainability" element={<Sustainability />} />
           <Route path="product/:id" element={<Product />} />
         </Route>
         <Route path="/admin/login" element={<Login />} />
