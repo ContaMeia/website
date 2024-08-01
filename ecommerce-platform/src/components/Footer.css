@@ -3,7 +3,6 @@
   background-color: #fff;
   width: 100%;
   z-index: 1;
-  
 }
 
 .footer-columns {
@@ -31,4 +30,13 @@
 
 .footer-column ul li {
   margin-bottom: 10px;
+}
+
+.footer-column ul li a {
+  text-decoration: none;
+  color: #000; /* Black text color */
+}
+
+.footer-column ul li a:hover {
+  color: #1e90ff; /* Blue color on hover */
 }

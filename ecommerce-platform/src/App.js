@@ -5,6 +5,8 @@ import Home from './pages/Home';
 import Shop from './pages/Shop';
 import AboutUs from './pages/AboutUs';
 import Product from './pages/Product';
+import Contact from './pages/Contact';
+import FAQ from './pages/FAQ';
 import Sustainability from './pages/Sustainability';
 import AdminLayout from './pages/admin/AdminLayout';
 import AdminDashboard from './pages/admin/AdminDashboard';
@@ -26,7 +28,9 @@ function App() {
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
           <Route path="shop" element={<Shop />} />
+          <Route path="contact" element={<Contact />} />
           <Route path="about-us" element={<AboutUs />} />
+          <Route path="faq" element={<FAQ />} />
           <Route path="sustainability" element={<Sustainability />} />
           <Route path="product/:id" element={<Product />} />
         </Route>
