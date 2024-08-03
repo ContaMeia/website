@@ -1,8 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
+import { useCart } from '../contexts/CartContext';
+
 
 const Header = () => {
+  const { cart } = useCart();
+
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
   return (
     <header className="header">
       <div className="container header-content">
@@ -28,16 +34,17 @@ const Header = () => {
             </button>
           </div>
           <div className="header-cart">
-            <Link to="/cart">
-              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                <g fill="none">
-                  <circle cx="7.5" cy="18.5" r="1.5" fill="currentColor"/>
-                  <circle cx="16.5" cy="18.5" r="1.5" fill="currentColor"/>
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h2l.6 3m0 0L7 15h10l2-7z"/>
-                </g>
-              </svg>
-            </Link>
-          </div>
+        <Link to="/cart">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+            <g fill="none">
+              <circle cx="7.5" cy="18.5" r="1.5" fill="currentColor" />
+              <circle cx="16.5" cy="18.5" r="1.5" fill="currentColor" />
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h2l.6 3m0 0L7 15h10l2-7z" />
+            </g>
+          </svg>
+          {totalItems > 0 && <span className="cart-count">{totalItems}</span>}
+        </Link>
+      </div>
         </div>
       </div>
     </header>

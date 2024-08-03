@@ -1,11 +1,12 @@
-.home {
-  position: relative;
-  z-index: 10;
+.fim {
+  width: 100%;
 }
+
 .shop {
   display: flex;
   padding: 20px;
-  z-index: 10px;
+  background-color: #F8F9FA; /* Light grey background */
+  width: 100%;
 }
 
 .filters {
@@ -20,13 +21,13 @@
 .filter-category,
 .filter-price,
 .filter-collection {
-  margin-bottom: 20px;
+  margin-bottom: 15px; /* Reduced margin */
 }
 
 .filter-category h2,
 .filter-price h2,
 .filter-collection h2 {
-  font-size: 1.2em; /* Reduced font size */
+  font-size: 1.2em; /* Smaller font size */
   color: #004d40;
 }
 
@@ -38,10 +39,10 @@
 
 .filter-category li,
 .filter-collection li {
-  font-size: 1em; /* Reduced font size */
+  font-size: 1em; /* Smaller font size */
   color: #00796b;
   cursor: pointer;
-  margin-bottom: 10px;
+  margin-bottom: 8px; /* Reduced margin */
   transition: color 0.3s ease;
 }
 
@@ -55,24 +56,29 @@
 }
 
 .filter-price span {
-  font-size: 1em; /* Reduced font size */
+  font-size: 1em; /* Smaller font size */
   color: #00796b;
 }
 
-.apply-filter,
-.reset-filter {
+.apply-filter {
   background-color: #004d40;
   color: white;
   border: none;
-  padding: 10px 20px;
-  font-size: 1em; /* Reduced font size */
+  padding: 8px 16px; /* Smaller padding */
+  font-size: 1em; /* Smaller font size */
   cursor: pointer;
   border-radius: 10px;
-  margin-top: 20px;
+  margin-top: 15px; /* Reduced margin */
 }
 
 .reset-filter {
-  background-color: #d32f2f; /* Red background for reset button */
+  background-color: transparent;
+  color: #00796b;
+  border: none;
+  padding: 8px 16px; /* Smaller padding */
+  font-size: 0.9em; /* Smaller font size */
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .products-container {
@@ -81,25 +87,42 @@
 }
 
 .products-container h1 {
-  font-size: 1.5em; /* Reduced font size */
+  font-size: 1.8em; /* Smaller font size */
   color: #004d40;
   margin-bottom: 20px;
+}
+
+.active-filters {
+  margin-bottom: 15px; /* Reduced margin */
+}
+
+.active-filters p {
+  font-size: 1em; /* Smaller font size */
+  color: #00796b;
+}
+
+.active-filters span {
+  background-color: #E3F4F4;
+  color: #00796b;
+  padding: 5px 10px;
+  margin-right: 8px; /* Reduced margin */
+  border-radius: 10px;
+  font-size: 0.9em; /* Smaller font size */
 }
 
 .products {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 15px; /* Reduced gap */
 }
 
 .product {
   background-color: white;
-  border-radius: 20px;
+  border-radius: 15px; /* Reduced border radius */
   overflow: hidden;
-  width: calc(25% - 20px); /* Four products per row */
+  width: calc(25% - 15px); /* Adjusted width calculation */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
-  cursor: pointer;
 }
 
 .product:hover {
@@ -108,97 +131,22 @@
 
 .product img {
   width: 100%;
-  height: 200px; /* Fixed height for square images */
+  height: 180px; /* Reduced height */
   object-fit: cover;
+  border: 2px solid #00796b;
 }
 
 .product h2 {
-  font-size: 1.2em; /* Reduced font size */
+  font-size: 1.2em; /* Smaller font size */
   color: #00796b;
-  padding: 10px;
+  padding: 8px;
+  margin: 0; /* Added margin */
 }
 
 .product p {
-  font-size: 1em; /* Reduced font size */
+  font-size: 1em; /* Smaller font size */
   color: #004d40;
-  padding: 0 10px 10px;
+  padding: 0 8px 8px;
+  margin: 0; /* Added margin */
 }
 
-.pagination {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.pagination button {
-  background-color: #00796b;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  margin: 0 5px;
-  cursor: pointer;
-  font-size: 1em; /* Reduced font size */
-  border-radius: 10px;
-}
-
-.pagination button:hover {
-  background-color: #004d40;
-}
-.newsletter {
-  background-color: #000;
-  color: #fff;
-  padding: 40px 0;
-  text-align: center;
-  border-radius: 10px;
-  margin: 20px 0;
-  width: 60%;
-  margin-left: 20%;
-  margin-right: 20%;
-  margin-bottom: -80px;
-  z-index: 10;
-  align-items: center;
-
-
-}
-
-.newsletter-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-  align-items: center;
-}
-
-.newsletter h2 {
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
-.newsletter-form {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  
-}
-
-.newsletter-form input[type="email"] {
-  padding: 10px;
-  font-size: 16px;
-  border: none;
-  border-radius: 20px 0 0 20px;
-  outline: none;
-  width: 300px;
-}
-
-.newsletter-form button {
-  padding: 10px 20px;
-  font-size: 16px;
-  border: none;
-  border-radius: 0 20px 20px 0;
-  background-color: #fff;
-  color: #000;
-  cursor: pointer;
-}
-
-.newsletter-form input[type="email"]::placeholder {
-  color: #aaa;
-}

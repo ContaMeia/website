@@ -1,14 +1,17 @@
+// src/pages/Product.js
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { db } from '../firebase';
 import { doc, getDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import './Product.css';
+import { useCart } from '../contexts/CartContext';
 
 function Product() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [mainImage, setMainImage] = useState('');
   const [relatedProducts, setRelatedProducts] = useState([]);
+  const { dispatch } = useCart();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -41,6 +44,10 @@ function Product() {
   const [quantity, setQuantity] = useState(1);
   const handleQuantityChange = (amount) => {
     setQuantity((prevQuantity) => Math.max(1, prevQuantity + amount));
+  };
+
+  const handleAddToCart = () => {
+    dispatch({ type: 'ADD_TO_CART', product: { ...product, quantity } });
   };
 
   const handleRelatedProductClick = (type) => {
@@ -92,7 +99,7 @@ function Product() {
               <input type="text" value={quantity} readOnly />
               <button onClick={() => handleQuantityChange(1)}>+</button>
             </div>
-            <button className="add-to-cart">Adicionar ao Carrinho</button>
+            <button onClick={handleAddToCart} className="add-to-cart">Adicionar ao Carrinho</button>
           </div>
         </div>
       </div>

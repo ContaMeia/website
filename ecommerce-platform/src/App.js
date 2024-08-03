@@ -7,6 +7,9 @@ import AboutUs from './pages/AboutUs';
 import Product from './pages/Product';
 import Contact from './pages/Contact';
 import FAQ from './pages/FAQ';
+import Cart from './pages/Cart';
+import { CartProvider } from './contexts/CartContext';
+
 import Sustainability from './pages/Sustainability';
 import AdminLayout from './pages/admin/AdminLayout';
 import AdminDashboard from './pages/admin/AdminDashboard';
@@ -23,6 +26,7 @@ import './App.css';
 
 function App() {
   return (
+    <CartProvider>
     <Router>
       <Routes>
         <Route path="/" element={<MainLayout />}>
@@ -31,6 +35,7 @@ function App() {
           <Route path="contact" element={<Contact />} />
           <Route path="about-us" element={<AboutUs />} />
           <Route path="faq" element={<FAQ />} />
+          <Route path="cart" element={<Cart />} />
           <Route path="sustainability" element={<Sustainability />} />
           <Route path="product/:id" element={<Product />} />
         </Route>
@@ -46,6 +51,7 @@ function App() {
         </Route>
       </Routes>
     </Router>
+    </CartProvider>
   );
 }
 
