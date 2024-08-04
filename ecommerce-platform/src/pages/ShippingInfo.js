@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { useCart } from '../contexts/CartContext';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './ShippingInfo.css';
 
 const ShippingInfo = () => {
   const navigate = useNavigate();
-  const { cart } = useCart();
+  const location = useLocation();
+  const { cart } = location.state || { cart: [] };
   const [formData, setFormData] = useState({
     email: '',
     firstName: '',
@@ -18,106 +18,182 @@ const ShippingInfo = () => {
     shippingMethod: '',
     paymentMethod: '',
   });
-  const [shippingCost, setShippingCost] = useState(4.00);
+  const [shippingCost, setShippingCost] = useState(0);
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   const handleShippingMethodChange = (e) => {
-    const cost = e.target.value === 'Express' ? 4.00 : 2.90;
-    setShippingCost(cost);
-    setFormData({ ...formData, shippingMethod: e.target.value });
+    const { value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      shippingMethod: value,
+    }));
+    if (cart.reduce((sum, item) => sum + item.price * item.quantity, 0) > 29.99) {
+      setShippingCost(0);
+    } else {
+      setShippingCost(value === 'CTT Expresso' ? 4 : 2.9);
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!formData.shippingMethod) {
+      alert('Por favor, selecione um método de envio.');
+      return;
+    }
+    if (!formData.paymentMethod) {
+      alert('Por favor, selecione um método de pagamento.');
+      return;
+    }
+    console.log('Form submitted');
+    console.log('Form data:', formData);
+    console.log('Shipping cost:', shippingCost);
+    console.log('Cart data:', cart);
     navigate('/payment', { state: { formData, shippingCost, cart } });
   };
-
-  const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const total = subtotal + shippingCost;
 
   return (
     <div className="shipping-info">
       <h1>Dados para o envio</h1>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Email*</label>
-          <input type="email" name="email" required onChange={handleChange} />
-        </div>
-        <div className="form-group">
-          <label>Nome*</label>
-          <input type="text" name="firstName" required onChange={handleChange} />
-        </div>
-        <div className="form-group">
-          <label>Apelido*</label>
-          <input type="text" name="lastName" required onChange={handleChange} />
-        </div>
-        <div className="form-group">
-          <label>País*</label>
-          <select name="country" onChange={handleChange}>
-            <option value="Portugal">Portugal</option>
-          </select>
-        </div>
-        <div className="form-group">
-          <label>Morada*</label>
-          <input type="text" name="address" required onChange={handleChange} />
-        </div>
-        <div className="form-group">
-          <label>Localidade*</label>
-          <input type="text" name="city" required onChange={handleChange} />
-        </div>
-        <div className="form-group">
-          <label>Código Postal*</label>
-          <input type="text" name="postalCode" required onChange={handleChange} />
-        </div>
-        <div className="form-group">
-          <label>Telefone*</label>
-          <input type="text" name="phone" required onChange={handleChange} />
-        </div>
-        <div className="shipping-method">
-          <h2>Envio</h2>
+      <div className="form-container">
+        <form onSubmit={handleSubmit} className="left-section">
           <label>
-            <input type="radio" name="shippingMethod" value="Express" required onChange={handleShippingMethodChange} />
-            Envio CTT Expresso: 4.00€
+            Endereço de email *
+            <input type="email" name="email" value={formData.email} onChange={handleInputChange} required />
           </label>
           <label>
-            <input type="radio" name="shippingMethod" value="Standard" required onChange={handleShippingMethodChange} />
-            Envio CTT: 2.90€
-          </label>
-        </div>
-        <div className="cart-summary">
-          <h2>A sua encomenda</h2>
-          <p>Subtotal: {subtotal}€</p>
-          <p>Envio: {shippingCost}€</p>
-          <p>Total: {total}€</p>
-        </div>
-        <div className="payment-method">
-          <h2>Selecionar o Método de Pagamento</h2>
-          <label>
-            <input type="radio" name="paymentMethod" value="MBWay" required onChange={handleChange} />
-            MBWay
+            Nome *
+            <input type="text" name="firstName" value={formData.firstName} onChange={handleInputChange} required />
           </label>
           <label>
-            <input type="radio" name="paymentMethod" value="Transferência Bancária" required onChange={handleChange} />
-            Transferência Bancária
+            Apelido *
+            <input type="text" name="lastName" value={formData.lastName} onChange={handleInputChange} required />
           </label>
           <label>
-            <input type="radio" name="paymentMethod" value="PayPal" required onChange={handleChange} />
-            PayPal
+            País *
+            <select name="country" value={formData.country} onChange={handleInputChange} required>
+              <option value="Portugal">Portugal</option>
+              {/* Add more country options here */}
+            </select>
           </label>
           <label>
-            <input type="radio" name="paymentMethod" value="Revolut" required onChange={handleChange} />
-            Revolut
+            Morada
+            <input type="text" name="address" value={formData.address} onChange={handleInputChange} required />
           </label>
+          <label>
+            Localidade
+            <input type="text" name="city" value={formData.city} onChange={handleInputChange} required />
+          </label>
+          <label>
+            Código postal
+            <input type="text" name="postalCode" value={formData.postalCode} onChange={handleInputChange} required />
+          </label>
+          <label>
+            Telefone
+            <input type="text" name="phone" value={formData.phone} onChange={handleInputChange} required />
+          </label>
+        </form>
+        <div className="right-section">
+          <div className="order-summary">
+            <h2>A sua encomenda</h2>
+            <p className="summary-row">
+              Subtotal: <span className="right-align">{cart.reduce((sum, item) => sum + item.price * item.quantity, 0).toFixed(2)}€</span>
+            </p>
+            <div className="shipping-option">
+              <label>
+                <input
+                  type="radio"
+                  id="express"
+                  name="shipping"
+                  value="CTT Expresso"
+                  checked={formData.shippingMethod === 'CTT Expresso'}
+                  onChange={handleShippingMethodChange}
+                />
+                Envio CTT Expresso: <span className="right-align">4.00€</span>
+                <p className="subtitle">Entrega em 1-2 dias úteis.</p>
+              </label>
+            </div>
+            <div className="shipping-option">
+              <label>
+                <input
+                  type="radio"
+                  id="standard"
+                  name="shipping"
+                  value="CTT"
+                  checked={formData.shippingMethod === 'CTT'}
+                  onChange={handleShippingMethodChange}
+                />
+                Envio CTT: <span className="right-align">2.90€</span>
+                <p className="subtitle">Entrega em 3-5 dias úteis.</p>
+              </label>
+            </div>
+            <p className="summary-row">
+              Envio: <span className="right-align">{shippingCost.toFixed(2)}€</span>
+            </p>
+            <p className="summary-row">
+              Total: <span className="right-align">{(cart.reduce((sum, item) => sum + item.price * item.quantity, 0) + shippingCost).toFixed(2)}€</span>
+            </p>
+          </div>
+          <div className="payment-method">
+            <h2>Selecionar o Método de Pagamento</h2>
+            <label>
+              <input
+                type="radio"
+                name="paymentMethod"
+                value="MBWay"
+                checked={formData.paymentMethod === 'MBWay'}
+                onChange={handleInputChange}
+                required
+              />
+              MBWay
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="paymentMethod"
+                value="Transferência Bancária"
+                checked={formData.paymentMethod === 'Transferência Bancária'}
+                onChange={handleInputChange}
+                required
+              />
+              Transferência Bancária
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="paymentMethod"
+                value="PayPal"
+                checked={formData.paymentMethod === 'PayPal'}
+                onChange={handleInputChange}
+                required
+              />
+              PayPal
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="paymentMethod"
+                value="Revolut"
+                checked={formData.paymentMethod === 'Revolut'}
+                onChange={handleInputChange}
+                required
+              />
+              Revolut
+            </label>
+            <label>
+              <input type="checkbox" required />
+              Eu li e aceito os termos e condições da loja*
+            </label>
+            <button onClick={handleSubmit} type="submit">Finalizar Compra</button>
+          </div>
         </div>
-        <div className="terms">
-          <input type="checkbox" required />
-          <label>Eu li e aceito os termos e condições da loja*</label>
-        </div>
-        <button type="submit">Finalizar Compra</button>
-      </form>
+      </div>
     </div>
   );
 };

@@ -2,37 +2,72 @@
     padding: 20px;
   }
   
-  .payment-details {
+  .content {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .payment-details, .order-summary {
+    background-color: #e0f7fa;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    width: 48%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .payment-details h2, .order-summary h2 {
+    font-size: 20px;
     margin-bottom: 20px;
   }
   
-  .payment-details h2 {
+  .payment-details p, .order-summary p {
+    font-size: 16px;
+    margin: 10px 0;
+  }
+  
+  .instructions {
+    font-size: 14px;
+    color: #666;
     margin-bottom: 10px;
   }
   
-  .payment-details p {
-    margin-bottom: 10px;
+  .divider {
+    margin: 10px 0;
+    border: none;
+    border-top: 1px solid #ddd;
   }
   
-  .payment-details input {
-    margin-bottom: 20px;
-  }
-  
-  button {
+  .upload-label {
+    display: inline-block;
     padding: 10px 20px;
-    background-color: #000;
+    background-color: #00796b;
     color: #fff;
     border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+  
+  .upload-label:hover {
+    background-color: #004d40;
+  }
+  
+  .upload-label input {
+    display: none;
+  }
+  
+  .submit-proof-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #004d40;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
   }
   
-  button:hover {
-    background-color: #333;
-  }
-  
-  .order-summary {
-    margin-top: 20px;
-    border-top: 1px solid #ddd;
-    padding-top: 20px;
+  .submit-proof-button:hover {
+    background-color: #00796b;
   }
   

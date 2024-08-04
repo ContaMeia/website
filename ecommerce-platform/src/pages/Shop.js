@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../firebase';
 import { collection, getDocs } from 'firebase/firestore';
-import { useNavigate } from 'react-router-dom';
 import './Shop.css';
 import { useCart } from '../contexts/CartContext';
 
@@ -14,7 +13,6 @@ function Shop() {
   const [collections, setCollections] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const { dispatch } = useCart();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -57,11 +55,7 @@ function Shop() {
   };
 
   const handleAddToCart = (product) => {
-    dispatch({ type: 'ADD_TO_CART', payload: { productId: product.id, quantity: 1, productData: product } });
-  };
-
-  const handleProductClick = (id) => {
-    navigate(`/product/${id}`);
+    dispatch({ type: 'ADD_TO_CART', product: { ...product, quantity: 1 } });
   };
 
   return (
@@ -104,14 +98,11 @@ function Shop() {
           {filteredProducts.length > 0 && <p>Filtros ativos: {`${selectedCategory ? selectedCategory + ', ' : ''}${selectedCollection ? selectedCollection + ', ' : ''}${priceRange[1] < 35 ? `até ${priceRange[1]}€` : ''}`}</p>}
           <div className="products">
             {filteredProducts.map(product => (
-              <div key={product.id} className="product" onClick={() => handleProductClick(product.id)}>
+              <div key={product.id} className="product">
                 <img src={product.mainImage} alt={product.name} />
                 <h2>{product.name}</h2>
                 <p>{product.price}€</p>
-                <button onClick={(e) => {
-                  e.stopPropagation(); // Impede a navegação ao clicar no botão
-                  handleAddToCart(product);
-                }}>Adicionar ao Carrinho</button>
+                <button onClick={() => handleAddToCart(product)}>Adicionar ao Carrinho</button>
               </div>
             ))}
           </div>

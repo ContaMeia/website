@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './PaymentInfo.css';
 import { db, storage } from '../firebase';
@@ -9,6 +9,8 @@ const PaymentInfo = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { formData, shippingCost, cart } = location.state;
+  const [proofURL, setProofURL] = useState(null);
+  const [uploading, setUploading] = useState(false);
 
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
@@ -16,23 +18,34 @@ const PaymentInfo = () => {
       const storageRef = ref(storage, `proofs/${file.name}`);
       const uploadTask = uploadBytesResumable(storageRef, file);
 
-      uploadTask.on('state_changed', 
+      setUploading(true);
+
+      uploadTask.on(
+        'state_changed',
         (snapshot) => {
           const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           console.log('Upload is ' + progress + '% done');
-        }, 
+        },
         (error) => {
-          console.error(error);
-        }, 
+          console.error('Upload error: ', error);
+          setUploading(false);
+        },
         async () => {
           const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-          handleSubmit(downloadURL);
+          console.log('File available at: ', downloadURL);
+          setProofURL(downloadURL);
+          setUploading(false);
         }
       );
     }
   };
 
-  const handleSubmit = async (proofURL) => {
+  const handleSubmit = async () => {
+    if (!proofURL) {
+      alert('Por favor, faça upload do comprovativo de pagamento.');
+      return;
+    }
+
     const orderData = {
       ...formData,
       shippingCost,
@@ -43,8 +56,12 @@ const PaymentInfo = () => {
       timestamp: serverTimestamp()
     };
 
-    await addDoc(collection(db, 'orders'), orderData);
-    navigate('/thank-you');
+    try {
+      await addDoc(collection(db, 'orders'), orderData);
+      navigate('/thank-you');
+    } catch (error) {
+      console.error('Error adding document: ', error);
+    }
   };
 
   const renderPaymentInstructions = () => {
@@ -86,17 +103,27 @@ const PaymentInfo = () => {
   return (
     <div className="payment-info">
       <h1>Finalizar pagamento</h1>
-      <div className="payment-details">
-        {renderPaymentInstructions()}
-        <input type="file" accept="image/*" onChange={handleFileChange} />
-        <button onClick={handleSubmit}>Enviar Comprovativo</button>
-      </div>
-      <div className="order-summary">
-        <h2>Encomenda recebida</h2>
-        <p>Número da encomenda: 243401</p>
-        <p>Data: {new Date().toLocaleDateString()}</p>
-        <p>Total: {cart.reduce((sum, item) => sum + item.price * item.quantity, 0) + shippingCost}€</p>
-        <p>Método de pagamento: {formData.paymentMethod}</p>
+      <div className="content">
+        <div className="payment-details">
+          <p className="instructions">Realize o pagamento e submeta o comprovativo abaixo</p>
+          <p className="instructions">A sua encomenda será enviada após a verificação do pagamento realizado</p>
+          <hr className="divider" />
+          {renderPaymentInstructions()}
+          <label className="upload-label">
+            <input type="file" accept="image/*,.pdf" onChange={handleFileChange} />
+            Submeter Comprovativo
+          </label>
+          <button onClick={handleSubmit} disabled={uploading || !proofURL} className="submit-proof-button">
+            {uploading ? 'Uploading...' : 'Enviar Comprovativo'}
+          </button>
+        </div>
+        <div className="order-summary">
+          <h2>Encomenda recebida</h2>
+          <p>Número da encomenda: 243401</p>
+          <p>Data: {new Date().toLocaleDateString()}</p>
+          <p>Total: {cart.reduce((sum, item) => sum + item.price * item.quantity, 0) + shippingCost}€</p>
+          <p>Método de pagamento: {formData.paymentMethod}</p>
+        </div>
       </div>
     </div>
   );
