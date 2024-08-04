@@ -1,24 +1,27 @@
+// src/pages/Shop.js
 import React, { useState, useEffect } from 'react';
 import { db } from '../firebase';
-import { collection, getDocs, query, where } from 'firebase/firestore';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { collection, getDocs } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 import './Shop.css';
+import { useCart } from '../contexts/CartContext';
 
 function Shop() {
-  const location = useLocation();
-  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [priceRange, setPriceRange] = useState([0, 35]);
-  const [selectedCategory, setSelectedCategory] = useState(location.state?.filter || '');
+  const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedCollection, setSelectedCollection] = useState('');
   const [collections, setCollections] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const { dispatch } = useCart();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProducts = async () => {
       const productCollection = await getDocs(collection(db, 'products'));
-      setProducts(productCollection.docs.map(doc => ({ id: doc.id, ...doc.data() })));
-      setFilteredProducts(productCollection.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+      const productsData = productCollection.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setProducts(productsData);
+      setFilteredProducts(productsData);
     };
 
     const fetchCollections = async () => {
@@ -53,11 +56,13 @@ function Shop() {
     setFilteredProducts(products);
   };
 
+  const handleAddToCart = (product) => {
+    dispatch({ type: 'ADD_TO_CART', payload: { productId: product.id, quantity: 1, productData: product } });
+  };
+
   const handleProductClick = (id) => {
     navigate(`/product/${id}`);
   };
-
-  const hasActiveFilters = selectedCategory || selectedCollection || priceRange[1] < 35;
 
   return (
     <div className='fim'>
@@ -96,26 +101,31 @@ function Shop() {
         </div>
         <div className="products-container">
           <h1>Produtos</h1>
-          {hasActiveFilters && (
-            <div className="active-filters">
-              <p>Filtros Ativos:</p>
-              {selectedCategory && <span>{selectedCategory}</span>}
-              {selectedCollection && <span>{selectedCollection}</span>}
-              {priceRange[1] < 35 && <span>{`Até ${priceRange[1]}€`}</span>}
-            </div>
-          )}
+          {filteredProducts.length > 0 && <p>Filtros ativos: {`${selectedCategory ? selectedCategory + ', ' : ''}${selectedCollection ? selectedCollection + ', ' : ''}${priceRange[1] < 35 ? `até ${priceRange[1]}€` : ''}`}</p>}
           <div className="products">
             {filteredProducts.map(product => (
               <div key={product.id} className="product" onClick={() => handleProductClick(product.id)}>
                 <img src={product.mainImage} alt={product.name} />
                 <h2>{product.name}</h2>
                 <p>{product.price}€</p>
+                <button onClick={(e) => {
+                  e.stopPropagation(); // Impede a navegação ao clicar no botão
+                  handleAddToCart(product);
+                }}>Adicionar ao Carrinho</button>
               </div>
             ))}
           </div>
         </div>
       </div>
-      
+      <section className="newsletter">
+        <div className="newsletter-container">
+          <h2>Queres ficar atualizado? Nós informamos-te as novidades</h2>
+          <form className="newsletter-form">
+            <input type="email" placeholder="Insira aqui o seu Email" />
+            <button type="submit">Subscrever</button>
+          </form>
+        </div>
+      </section>
     </div>
   );
 }

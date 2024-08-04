@@ -1,0 +1,50 @@
+.shipping-info {
+    padding: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .shipping-method, .payment-method, .cart-summary {
+    margin-top: 20px;
+  }
+  
+  .shipping-method label, .payment-method label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .terms {
+    margin-top: 20px;
+  }
+  
+  .terms label {
+    margin-left: 5px;
+  }
+  
+  button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #333;
+  }
+  

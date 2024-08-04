@@ -9,6 +9,9 @@ import Contact from './pages/Contact';
 import FAQ from './pages/FAQ';
 import Cart from './pages/Cart';
 import { CartProvider } from './contexts/CartContext';
+import ShippingInfo from './pages/ShippingInfo';
+import PaymentInfo from './pages/PaymentInfo';
+import ThankYou from './pages/ThankYou';
 
 import Sustainability from './pages/Sustainability';
 import AdminLayout from './pages/admin/AdminLayout';
@@ -36,6 +39,9 @@ function App() {
           <Route path="about-us" element={<AboutUs />} />
           <Route path="faq" element={<FAQ />} />
           <Route path="cart" element={<Cart />} />
+          <Route path="shipping" element={<ShippingInfo />} />
+          <Route path="payment" element={<PaymentInfo />} />
+          <Route path="thank-you" element={<ThankYou />} />
           <Route path="sustainability" element={<Sustainability />} />
           <Route path="product/:id" element={<Product />} />
         </Route>

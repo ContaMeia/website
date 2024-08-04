@@ -1,0 +1,38 @@
+.payment-info {
+    padding: 20px;
+  }
+  
+  .payment-details {
+    margin-bottom: 20px;
+  }
+  
+  .payment-details h2 {
+    margin-bottom: 10px;
+  }
+  
+  .payment-details p {
+    margin-bottom: 10px;
+  }
+  
+  .payment-details input {
+    margin-bottom: 20px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #333;
+  }
+  
+  .order-summary {
+    margin-top: 20px;
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+  }
+  

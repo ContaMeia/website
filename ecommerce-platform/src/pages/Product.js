@@ -11,8 +11,8 @@ function Product() {
   const [product, setProduct] = useState(null);
   const [mainImage, setMainImage] = useState('');
   const [relatedProducts, setRelatedProducts] = useState([]);
-  const { dispatch } = useCart();
   const navigate = useNavigate();
+  const { dispatch } = useCart();
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -47,7 +47,7 @@ function Product() {
   };
 
   const handleAddToCart = () => {
-    dispatch({ type: 'ADD_TO_CART', product: { ...product, quantity } });
+    dispatch({ type: 'ADD_TO_CART', product });
   };
 
   const handleRelatedProductClick = (type) => {
@@ -104,17 +104,17 @@ function Product() {
         </div>
       </div>
       <div className="related-products">
-      <div className="related-products-container" onClick={() => handleRelatedProductClick(product.type)}>
-        <h2>Encontrar outros {product.type} semelhantes</h2>
-        <div className="related-products">
-          {relatedProducts.map(relatedProduct => (
-            <div key={relatedProduct.id} className="related-product">
-              <img src={relatedProduct.mainImage} alt={relatedProduct.name} />
-              <p>{relatedProduct.name}</p>
-            </div>
-          ))}
+        <div className="related-products-container" onClick={() => handleRelatedProductClick(product.type)}>
+          <h2>Encontrar outros {product.type} semelhantes</h2>
+          <div className="related-products">
+            {relatedProducts.map(relatedProduct => (
+              <div key={relatedProduct.id} className="related-product">
+                <img src={relatedProduct.mainImage} alt={relatedProduct.name} />
+                <p>{relatedProduct.name}</p>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
       </div>
       <section className="newsletter">
         <div className="newsletter-container">
