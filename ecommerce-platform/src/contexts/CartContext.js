@@ -38,8 +38,12 @@ export const CartProvider = ({ children }) => {
     localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
 
+  const clearCart = () => {
+    dispatch({ type: 'CLEAR_CART' });
+  };
+
   return (
-    <CartContext.Provider value={{ cart, dispatch }}>
+    <CartContext.Provider value={{ cart, dispatch, clearCart }}>
       {children}
     </CartContext.Provider>
   );

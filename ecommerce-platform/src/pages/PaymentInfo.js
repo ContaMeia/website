@@ -1,9 +1,11 @@
+// src/pages/PaymentInfo.js
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './PaymentInfo.css';
 import { db, storage } from '../firebase';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { useCart } from '../contexts/CartContext';
 
 const PaymentInfo = () => {
   const navigate = useNavigate();
@@ -11,6 +13,11 @@ const PaymentInfo = () => {
   const { formData, shippingCost, cart } = location.state;
   const [proofURL, setProofURL] = useState(null);
   const [uploading, setUploading] = useState(false);
+  const { clearCart } = useCart();
+
+  const generateOrderNumber = () => {
+    return Math.floor(100000 + Math.random() * 900000); // Generates a 6-digit number
+  };
 
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
@@ -46,6 +53,7 @@ const PaymentInfo = () => {
       return;
     }
 
+    const orderNumber = generateOrderNumber();
     const orderData = {
       ...formData,
       shippingCost,
@@ -53,12 +61,14 @@ const PaymentInfo = () => {
       cart,
       proofURL,
       status: 'Pending',
-      timestamp: serverTimestamp()
+      timestamp: serverTimestamp(),
+      orderNumber,
     };
 
     try {
       await addDoc(collection(db, 'orders'), orderData);
-      navigate('/thank-you');
+      clearCart(); // Clear the cart after successful submission
+      navigate('/thank-you', { state: { orderNumber, formData, cart, shippingCost } });
     } catch (error) {
       console.error('Error adding document: ', error);
     }
@@ -119,7 +129,7 @@ const PaymentInfo = () => {
         </div>
         <div className="order-summary">
           <h2>Encomenda recebida</h2>
-          <p>Número da encomenda: 243401</p>
+          <p>Número da encomenda: {generateOrderNumber()}</p>
           <p>Data: {new Date().toLocaleDateString()}</p>
           <p>Total: {cart.reduce((sum, item) => sum + item.price * item.quantity, 0) + shippingCost}€</p>
           <p>Método de pagamento: {formData.paymentMethod}</p>

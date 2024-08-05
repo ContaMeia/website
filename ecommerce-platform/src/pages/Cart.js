@@ -28,6 +28,10 @@ const Cart = () => {
     navigate('/shipping', { state: { cart } });
   };
 
+  const clearCart = () => {
+    dispatch({ type: 'CLEAR_CART' });
+  };
+
   return (
     <div className="cart-page">
       <h1>O teu Carrinho</h1>
