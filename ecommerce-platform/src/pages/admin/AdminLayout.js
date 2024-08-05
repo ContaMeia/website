@@ -17,10 +17,9 @@ const AdminLayout = () => {
     <div className="admin-layout">
       <nav>
         <Link to="/admin/dashboard">Dashboard</Link>
-        <Link to="/admin/orders">Manage Orders</Link>
-        <Link to="/admin/products">Manage Products</Link>
-        <Link to="/admin/clients">Manage Clients</Link>
-        <Link to="/admin/collections">Create Collection</Link>
+        <Link to="/admin/orders">Encomendas</Link>
+        <Link to="/admin/products">Produtos</Link>
+        <Link to="/admin/collections">Criar coleções</Link>
         <button className="logout" onClick={handleLogout}>Logout</button>
       </nav>
       <div className="admin-content">

@@ -20,8 +20,8 @@ import AdminOrders from './pages/admin/AdminOrders';
 import AdminProducts from './pages/admin/AdminProducts';
 import AdminNewProduct from './pages/admin/AdminNewProduct';
 import AdminEditProduct from './pages/admin/AdminEditProduct';
-import AdminClients from './pages/admin/AdminClients';
 import AdminCollections from './pages/admin/AdminCollections';
+import OrderDetails from './pages/admin/OrderDetails';
 import Login from './pages/admin/Login';
 import ProtectedRoute from './components/ProtectedRoute';
 import MainLayout from './components/MainLayout'; // Import MainLayout
@@ -49,10 +49,10 @@ function App() {
         <Route path="/admin" element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
           <Route path="dashboard" element={<AdminDashboard />} />
           <Route path="orders" element={<AdminOrders />} />
+          <Route path="ordersdetail/:orderId" element={<OrderDetails />} />
           <Route path="products" element={<AdminProducts />} />
           <Route path="products/new" element={<AdminNewProduct />} />
           <Route path="products/edit/:id" element={<AdminEditProduct />} />
-          <Route path="clients" element={<AdminClients />} />
           <Route path="collections" element={<AdminCollections />} />
         </Route>
       </Routes>

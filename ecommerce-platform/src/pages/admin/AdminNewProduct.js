@@ -6,7 +6,6 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { useNavigate } from 'react-router-dom';
 import './AdminForm.css';
 
-
 function AdminNewProduct() {
   const [product, setProduct] = useState({
     name: '',
@@ -80,12 +79,17 @@ function AdminNewProduct() {
   return (
     <div className="admin-new-product">
       <h1>Criar Produto</h1>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
+      <form onSubmit={handleSubmit} className="product-form">
+        <label>
+          Nome da Peça
           <input type="text" name="name" placeholder="Nome da Peça" value={product.name} onChange={handleChange} required />
+        </label>
+        <label>
+          Código da Peça
           <input type="text" name="code" placeholder="Código da Peça" value={product.code} onChange={handleChange} required />
-        </div>
-        <div className="form-group">
+        </label>
+        <label>
+          Tipo de Peça
           <select name="type" value={product.type} onChange={handleChange} required>
             <option value="">Tipo de Peça</option>
             <option value="colar">Colar</option>
@@ -93,23 +97,40 @@ function AdminNewProduct() {
             <option value="anel">Anel</option>
             <option value="brinco">Brinco</option>
           </select>
+        </label>
+        <label>
+          Coleção
           <select name="collection" value={product.collection} onChange={handleChange} required>
             <option value="">Coleção</option>
             {collections.map((col, index) => (
               <option key={index} value={col.name}>{col.name}</option>
             ))}
           </select>
-        </div>
-        <textarea name="description" placeholder="Descrição" value={product.description} onChange={handleChange} required />
-        <div className="form-group">
+        </label>
+        <label>
+          Descrição
+          <textarea name="description" placeholder="Descrição" value={product.description} onChange={handleChange} required />
+        </label>
+        <label>
+          Preço
           <input type="number" name="price" placeholder="Preço" value={product.price} onChange={handleChange} required />
+        </label>
+        <label>
+          Desconto em %
           <input type="number" name="discount" placeholder="Desconto em % (se não tiver inserir 0)" value={product.discount} onChange={handleChange} required />
-        </div>
-        <input type="number" name="stock" placeholder="Quantidade em Stock" value={product.stock} onChange={handleChange} required />
-        <div className="form-group">
-          <input type="file" name="mainImageFile" onChange={handleImageChange} required />
-          <input type="file" name="secondaryImageFile" onChange={handleImageChange} required />
-        </div>
+        </label>
+        <label>
+          Quantidade em Stock
+          <input type="number" name="stock" placeholder="Quantidade em Stock" value={product.stock} onChange={handleChange} required />
+        </label>
+        <label>
+          Foto Principal
+          <input type="file" name="mainImageFile" onChange={handleImageChange} />
+        </label>
+        <label>
+          Foto Secundária
+          <input type="file" name="secondaryImageFile" onChange={handleImageChange} />
+        </label>
         <button type="submit">Criar</button>
       </form>
     </div>

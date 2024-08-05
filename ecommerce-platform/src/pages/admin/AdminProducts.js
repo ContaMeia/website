@@ -1,12 +1,14 @@
-// src/pages/admin/AdminProducts.js
 import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { db } from '../../firebase';
-import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore';
-import { Link } from 'react-router-dom';
+import { collection, getDocs } from 'firebase/firestore';
 import './AdminProducts.css';
 
 function AdminProducts() {
   const [products, setProducts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filterType, setFilterType] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -19,37 +21,56 @@ function AdminProducts() {
     fetchProducts();
   }, []);
 
-  const handleDelete = async (id) => {
-    try {
-      await deleteDoc(doc(db, 'products', id));
-      setProducts(products.filter(product => product.id !== id));
-    } catch (error) {
-      console.error('Error deleting document: ', error);
-    }
-  };
+  const filteredProducts = products
+    .filter(product => 
+      product.name.toLowerCase().includes(searchTerm.toLowerCase()) && 
+      (filterType ? product.type === filterType : true)
+    );
 
   return (
     <div className="admin-products">
       <h1>Produtos</h1>
-      <Link to="/admin/products/new">Criar Produto</Link>
-      <table>
+      <div className="filters">
+        <input 
+          type="text" 
+          placeholder="Procurar por Nome da Peça..." 
+          value={searchTerm} 
+          onChange={(e) => setSearchTerm(e.target.value)} 
+        />
+        <select 
+          value={filterType} 
+          onChange={(e) => setFilterType(e.target.value)} 
+        >
+          <option value="">Filtrar por Tipo de Peça</option>
+          <option value="colar">Colar</option>
+          <option value="anel">Anel</option>
+          {/* Add more options as needed */}
+        </select>
+        <button className="create-button" onClick={() => navigate('/admin/products/new')}>
+          Criar Produto
+        </button>
+      </div>
+      <table className="product-table">
         <thead>
           <tr>
             <th>Nome da Peça</th>
             <th>Tipo de Peça</th>
             <th>Preço</th>
+            <th>Disponível</th>
+            <th>Codigo</th>
             <th>Ações</th>
           </tr>
         </thead>
         <tbody>
-          {products.map(product => (
+          {filteredProducts.map(product => (
             <tr key={product.id}>
               <td>{product.name}</td>
               <td>{product.type}</td>
-              <td>{product.price}</td>
+              <td>{product.price}€</td>
+              <td>{product.stock}</td>
+              <td>{product.code}</td>
               <td>
-                <Link to={`/admin/products/edit/${product.id}`}>Editar</Link>
-                <button onClick={() => handleDelete(product.id)}>Delete</button>
+                <Link to={`/admin/products/edit/${product.id}`} className="edit-button">Editar</Link>
               </td>
             </tr>
           ))}
