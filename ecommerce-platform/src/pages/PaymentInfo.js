@@ -1,10 +1,9 @@
-// src/pages/PaymentInfo.js
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './PaymentInfo.css';
 import { db, storage } from '../firebase';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, updateDoc, getDocs, query, where } from 'firebase/firestore';
 import { useCart } from '../contexts/CartContext';
 
 const PaymentInfo = () => {
@@ -47,6 +46,22 @@ const PaymentInfo = () => {
     }
   };
 
+  const updateProductStock = async () => {
+    for (const item of cart) {
+      const productQuery = query(collection(db, 'products'), where('code', '==', item.code));
+      const productSnapshot = await getDocs(productQuery);
+      if (!productSnapshot.empty) {
+        const productDoc = productSnapshot.docs[0]; // Assuming codes are unique and there's only one document
+        const productRef = productDoc.ref;
+        const currentStock = productDoc.data().stock;
+        const newStock = currentStock - item.quantity;
+        await updateDoc(productRef, { stock: newStock });
+      } else {
+        console.error(`Product with code ${item.code} does not exist.`);
+      }
+    }
+  };
+
   const handleSubmit = async () => {
     if (!proofURL) {
       alert('Por favor, faça upload do comprovativo de pagamento.');
@@ -60,12 +75,16 @@ const PaymentInfo = () => {
       total: cart.reduce((sum, item) => sum + item.price * item.quantity, 0) + shippingCost,
       cart,
       proofURL,
-      status: 'Pending',
+      status: 'Confirmar Pagamento',
       timestamp: serverTimestamp(),
       orderNumber,
     };
 
     try {
+      // Update product stock before creating the order
+      await updateProductStock();
+
+      // Create the order
       await addDoc(collection(db, 'orders'), orderData);
       clearCart(); // Clear the cart after successful submission
       navigate('/thank-you', { state: { orderNumber, formData, cart, shippingCost } });

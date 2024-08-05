@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { db } from '../firebase'; // Make sure you have this path correct
+import { collection, addDoc } from 'firebase/firestore';
 import './Home.css';
 
 const testimonials = [
@@ -26,6 +29,8 @@ const testimonials = [
 
 function Home() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [email, setEmail] = useState('');
+  const navigate = useNavigate();
 
   const nextTestimonial = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
@@ -35,13 +40,26 @@ function Home() {
     setCurrentIndex((prevIndex) => (prevIndex - 1 + testimonials.length) % testimonials.length);
   };
 
+  const handleNewsletterSubmit = async (e) => {
+    e.preventDefault();
+    if (email) {
+      try {
+        await addDoc(collection(db, 'newsletter'), { email });
+        alert('Subscribed successfully!');
+        setEmail('');
+      } catch (error) {
+        console.error('Error adding email to newsletter: ', error);
+      }
+    }
+  };
+
   return (
     <div className="home">
       <section className="hero">
         <div className="hero-content">
           <h1>Nova coleção de Outono 2024 Disponivel</h1>
           <p>Procure entre a grande variedade de anéis, pulseiras e colares da nossa coleção de outono.</p>
-          <button type="button">Ver Coleção</button>
+          <button type="button" onClick={() => navigate('/shop')}>Ver Coleção</button>
           <div className="hero-stats">
             <div>
               <span>100+</span>
@@ -71,7 +89,7 @@ function Home() {
               Na Corta&Meia, trabalhamos arduamente para ajudar a tornar o planeta um lugar melhor e é com esta mentalidade que
               nos orgulhamos de anunciar todas as nossas peças são feitas com materiais de origem sustentável.
             </p>
-            <button type="button">Saber Mais</button>
+            <button type="button" onClick={() => navigate('/sustainability')}>Saber Mais</button>
           </div>
         </div>
       </section>
@@ -79,19 +97,19 @@ function Home() {
         <div className="container">
           <h2>Pesquisa por tipo de Joia</h2>
           <div className="product-search-grid">
-            <div className="product-search-item">
+            <div className="product-search-item" onClick={() => navigate('/shop')}>
               <img src="/images/rings.jpg" alt="Anéis" />
               <div className="product-search-text">Anéis</div>
             </div>
-            <div className="product-search-item">
+            <div className="product-search-item" onClick={() => navigate('/shop')}>
               <img src="/images/bracelets.jpg" alt="Pulseiras" />
               <div className="product-search-text">Pulseiras</div>
             </div>
-            <div className="product-search-item">
+            <div className="product-search-item" onClick={() => navigate('/shop')}>
               <img src="/images/necklaces.jpg" alt="Colares" />
               <div className="product-search-text">Colares</div>
             </div>
-            <div className="product-search-item">
+            <div className="product-search-item" onClick={() => navigate('/shop')}>
               <img src="/images/earrings.jpg" alt="Brincos" />
               <div className="product-search-text">Brincos</div>
             </div>
@@ -123,9 +141,17 @@ function Home() {
       <section className="newsletter">
         <div className="newsletter-container">
           <h2>Queres ficar atualizado? Nós informamos-te as novidades</h2>
-          <form className="newsletter-form">
-            <input type="email" placeholder="Insira aqui o seu Email" />
-            <button type="submit">Subscrever</button>
+          <form className="newsletter-form" onSubmit={handleNewsletterSubmit}>
+            <div className='newscont'>
+              <input 
+                type="email" 
+                placeholder="Insira aqui o seu Email" 
+                value={email} 
+                onChange={(e) => setEmail(e.target.value)} 
+                required 
+              />
+              <button type="submit">Subscrever</button>
+            </div>
           </form>
         </div>
       </section>

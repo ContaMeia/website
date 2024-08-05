@@ -110,7 +110,8 @@
 .sustainability {
   background-color: var(--global-color);
   padding: 40px 0;
-  width: 100%;
+  width: 80%;
+  margin: 0 auto;
 }
 
 .sustainability-content {
@@ -170,9 +171,10 @@
   }
 }
 .product-search {
-  padding: 40px 0;
+  padding: 40px auto;
   background-color: var(--global-color);
-  width: 100%;
+  width: 80%;
+  margin: 0 auto;
 }
 
 .product-search h2 {
@@ -185,12 +187,13 @@
 }
 
 .container {
-  max-width: 900px;
+  max-width: 650px;
   margin: 40px auto; /* Increased margin */
   background-color: #fff;
   padding: 40px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  align-items: center;
 }
 
 .product-search-grid {
@@ -261,6 +264,8 @@
   background-color: var(--global-color);
   text-align: center;
   position: relative;
+  width: 60%;
+  margin: 0 auto;
 }
 
 .testimonials h2 {
@@ -280,6 +285,7 @@
   padding: 10px;
   position: relative;
   margin: 0px;
+  max-width: 20px;
 }
 
 .testimonials-wrapper {
@@ -374,24 +380,29 @@
   align-items: center;
   
 }
+.newscont {
+  background-color: #fff;
+  border-radius: 20px 20px 20px 20px;
 
+}
 .newsletter-form input[type="email"] {
-  padding: 10px;
   font-size: 16px;
   border: none;
   border-radius: 20px 0 0 20px;
   outline: none;
   width: 300px;
+  height: 20px;
 }
 
 .newsletter-form button {
-  padding: 10px 20px;
   font-size: 16px;
   border: none;
   border-radius: 0 20px 20px 0;
   background-color: #fff;
   color: #000;
   cursor: pointer;
+  width: 100px;
+  height: 30px;
 }
 
 .newsletter-form input[type="email"]::placeholder {

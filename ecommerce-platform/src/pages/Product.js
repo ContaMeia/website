@@ -47,9 +47,10 @@ function Product() {
   };
 
   const handleAddToCart = () => {
-    dispatch({ type: 'ADD_TO_CART', product: { ...product, quantity } });
+    const productWithCode = { ...product, id: product.code, quantity };
+    dispatch({ type: 'ADD_TO_CART', product: productWithCode });
   };
-
+  
   const handleRelatedProductClick = (type) => {
     navigate(`/shop?type=${type}`);
   };
@@ -93,28 +94,32 @@ function Product() {
           ) : (
             <p className="price">{product.price}€</p>
           )}
-          <div className="quantity-cart-container">
-            <div className="quantity-container">
-              <button onClick={() => handleQuantityChange(-1)}>-</button>
-              <input type="text" value={quantity} readOnly />
-              <button onClick={() => handleQuantityChange(1)}>+</button>
+          {product.stock > 0 ? (
+            <div className="quantity-cart-container">
+              <div className="quantity-container">
+                <button onClick={() => handleQuantityChange(-1)}>-</button>
+                <input type="text" value={quantity} readOnly />
+                <button onClick={() => handleQuantityChange(1)}>+</button>
+              </div>
+              <button onClick={handleAddToCart} className="add-to-cart">Adicionar ao Carrinho</button>
             </div>
-            <button onClick={handleAddToCart} className="add-to-cart">Adicionar ao Carrinho</button>
-          </div>
+          ) : (
+            <p className="out-of-stock-message">Neste momento este Produto não está disponível</p>
+          )}
         </div>
       </div>
       <div className="related-products">
-      <div className="related-products-container" onClick={() => handleRelatedProductClick(product.type)}>
-        <h2>Encontrar outros {product.type} semelhantes</h2>
-        <div className="related-products">
-          {relatedProducts.map(relatedProduct => (
-            <div key={relatedProduct.id} className="related-product">
-              <img src={relatedProduct.mainImage} alt={relatedProduct.name} />
-              <p>{relatedProduct.name}</p>
-            </div>
-          ))}
+        <div className="related-products-container" onClick={() => handleRelatedProductClick(product.type)}>
+          <h2>Encontrar outros {product.type} semelhantes</h2>
+          <div className="related-products">
+            {relatedProducts.map(relatedProduct => (
+              <div key={relatedProduct.id} className="related-product">
+                <img src={relatedProduct.mainImage} alt={relatedProduct.name} />
+                <p>{relatedProduct.name}</p>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
       </div>
       <section className="newsletter">
         <div className="newsletter-container">

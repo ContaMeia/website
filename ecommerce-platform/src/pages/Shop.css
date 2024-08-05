@@ -1,152 +1,111 @@
+/* Container principal da página de loja */
 .fim {
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
 }
 
 .shop {
   display: flex;
-  padding: 20px;
-  background-color: #F8F9FA; /* Light grey background */
+  justify-content: space-between;
+  max-width: 1200px;
   width: 100%;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.filters-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Alinhar à esquerda */
+  width: 20%;
 }
 
 .filters {
   display: flex;
   flex-direction: column;
-  width: 20%;
+  gap: 20px;
   padding: 20px;
-  background-color: #E3F4F4; /* Light blue background */
-  border-radius: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
 }
 
-.filter-category,
-.filter-price,
-.filter-collection {
-  margin-bottom: 15px; /* Reduced margin */
+.filter-category, .filter-price, .filter-collection {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Alinhar à esquerda */
+  margin-bottom: 20px;
 }
 
-.filter-category h2,
-.filter-price h2,
-.filter-collection h2 {
-  font-size: 1.2em; /* Smaller font size */
-  color: #004d40;
-}
-
-.filter-category ul,
-.filter-collection ul {
+.filter-category ul, .filter-collection ul {
   list-style-type: none;
   padding: 0;
+  margin: 0;
 }
 
-.filter-category li,
-.filter-collection li {
-  font-size: 1em; /* Smaller font size */
-  color: #00796b;
+.filter-category li, .filter-collection li {
+  margin: 5px 0;
   cursor: pointer;
-  margin-bottom: 8px; /* Reduced margin */
-  transition: color 0.3s ease;
 }
 
-.filter-category li:hover,
-.filter-collection li:hover {
-  color: #004d40;
+.filter-category h2, .filter-price h2, .filter-collection h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
 }
 
 .filter-price input[type="range"] {
   width: 100%;
 }
 
-.filter-price span {
-  font-size: 1em; /* Smaller font size */
-  color: #00796b;
+.filters button {
+  padding: 10px;
+  font-size: 14px;
+  margin-top: 10px;
 }
 
-.apply-filter {
-  background-color: #004d40;
-  color: white;
+.apply-filter, .reset-filter {
+  padding: 10px;
+  font-size: 14px;
+  background-color: #006400;
+  color: #fff;
   border: none;
-  padding: 8px 16px; /* Smaller padding */
-  font-size: 1em; /* Smaller font size */
+  border-radius: 5px;
   cursor: pointer;
-  border-radius: 10px;
-  margin-top: 15px; /* Reduced margin */
+  width: 100%;
 }
 
 .reset-filter {
-  background-color: transparent;
-  color: #00796b;
-  border: none;
-  padding: 8px 16px; /* Smaller padding */
-  font-size: 0.9em; /* Smaller font size */
-  cursor: pointer;
-  text-decoration: underline;
+  background-color: #8B0000;
 }
 
 .products-container {
-  width: 80%;
-  padding: 20px;
-}
-
-.products-container h1 {
-  font-size: 1.8em; /* Smaller font size */
-  color: #004d40;
-  margin-bottom: 20px;
-}
-
-.active-filters {
-  margin-bottom: 15px; /* Reduced margin */
-}
-
-.active-filters p {
-  font-size: 1em; /* Smaller font size */
-  color: #00796b;
-}
-
-.active-filters span {
-  background-color: #E3F4F4;
-  color: #00796b;
-  padding: 5px 10px;
-  margin-right: 8px; /* Reduced margin */
-  border-radius: 10px;
-  font-size: 0.9em; /* Smaller font size */
+  width: 75%;
 }
 
 .products {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px; /* Reduced gap */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 20px;
 }
 
 .product {
-  background-color: white;
-  border-radius: 15px; /* Reduced border radius */
-  overflow: hidden;
-  width: calc(25% - 15px); /* Adjusted width calculation */
+  border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-}
-
-.product:hover {
-  transform: scale(1.05);
+  padding: 10px;
+  text-align: left;
+  cursor: pointer;
 }
 
 .product img {
   width: 100%;
-  height: 180px; /* Reduced height */
+  height: 200px;
   object-fit: cover;
-  border: 2px solid #00796b;
+  border-radius: 10px;
 }
 
-.product h2 {
-  font-size: 1.2em; /* Smaller font size */
-  color: #00796b;
-  padding: 8px;
-  margin: 0; /* Added margin */
+.product h2, .product p {
+  margin: 10px 0;
 }
-
-.product p {
-  font-size: 1em; /* Smaller font size */
-  color: #004d40;
-  padding: 0 8px 8px;
-  margin: 0; /* Added margin */
-}
-

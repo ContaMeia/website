@@ -1,9 +1,9 @@
-// src/pages/Shop.js
 import React, { useState, useEffect } from 'react';
 import { db } from '../firebase';
 import { collection, getDocs } from 'firebase/firestore';
 import './Shop.css';
 import { useCart } from '../contexts/CartContext';
+import { useNavigate } from 'react-router-dom';
 
 function Shop() {
   const [products, setProducts] = useState([]);
@@ -13,6 +13,7 @@ function Shop() {
   const [collections, setCollections] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const { dispatch } = useCart();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -54,55 +55,57 @@ function Shop() {
     setFilteredProducts(products);
   };
 
-  const handleAddToCart = (product) => {
-    dispatch({ type: 'ADD_TO_CART', product: { ...product, quantity: 1 } });
+  const handleProductClick = (id) => {
+    navigate(`/product/${id}`);
   };
 
   return (
     <div className='fim'>
       <div className="shop">
-        <div className="filters">
-          <div className="filter-category">
-            <h2>Filtros</h2>
-            <ul>
-              <li onClick={() => setSelectedCategory('colar')}>Colares</li>
-              <li onClick={() => setSelectedCategory('brinco')}>Brincos</li>
-              <li onClick={() => setSelectedCategory('anel')}>Anéis</li>
-              <li onClick={() => setSelectedCategory('pulseira')}>Pulseiras</li>
-            </ul>
+        <div className="filters-container">
+          <div className="filters">
+            <div className="filter-category">
+              <h2>Filtros</h2>
+              <ul>
+                <li onClick={() => setSelectedCategory('colar')}>Colares</li>
+                <li onClick={() => setSelectedCategory('brinco')}>Brincos</li>
+                <li onClick={() => setSelectedCategory('anel')}>Anéis</li>
+                <li onClick={() => setSelectedCategory('pulseira')}>Pulseiras</li>
+              </ul>
+            </div>
+            <div className="filter-price">
+              <h2>Preços</h2>
+              <input
+                type="range"
+                min="0"
+                max="35"
+                value={priceRange[1]}
+                onChange={handlePriceChange}
+              />
+              <span>{priceRange[1]}€</span>
+            </div>
+          {/*   <div className="filter-collection">
+              <h2>Coleção</h2>
+              <ul>
+                {collections.map((col, index) => (
+                  <li key={index} onClick={() => setSelectedCollection(col.name)}>{col.name}</li>
+                ))}
+              </ul>
+            </div> 
+            */}
+            <button className="apply-filter" onClick={handleFilterApply}>Aplicar Filtro</button>
+            <button className="reset-filter" onClick={handleResetFilter}>Limpar Filtros</button>
           </div>
-          <div className="filter-price">
-            <h2>Preços</h2>
-            <input
-              type="range"
-              min="0"
-              max="35"
-              value={priceRange[1]}
-              onChange={handlePriceChange}
-            />
-            <span>{priceRange[1]}€</span>
-          </div>
-          <div className="filter-collection">
-            <h2>Coleção</h2>
-            <ul>
-              {collections.map((col, index) => (
-                <li key={index} onClick={() => setSelectedCollection(col.name)}>{col.name}</li>
-              ))}
-            </ul>
-          </div>
-          <button className="apply-filter" onClick={handleFilterApply}>Aplicar Filtro</button>
-          <button className="reset-filter" onClick={handleResetFilter}>Resetar Filtro</button>
         </div>
         <div className="products-container">
           <h1>Produtos</h1>
           {filteredProducts.length > 0 && <p>Filtros ativos: {`${selectedCategory ? selectedCategory + ', ' : ''}${selectedCollection ? selectedCollection + ', ' : ''}${priceRange[1] < 35 ? `até ${priceRange[1]}€` : ''}`}</p>}
           <div className="products">
             {filteredProducts.map(product => (
-              <div key={product.id} className="product">
+              <div key={product.id} className="product" onClick={() => handleProductClick(product.id)}>
                 <img src={product.mainImage} alt={product.name} />
                 <h2>{product.name}</h2>
                 <p>{product.price}€</p>
-                <button onClick={() => handleAddToCart(product)}>Adicionar ao Carrinho</button>
               </div>
             ))}
           </div>
